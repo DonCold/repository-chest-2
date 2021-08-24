@@ -1,10 +1,10 @@
 const Mensaje = ({ color, message }) => {
     return (
-        <p
+        <h1
         style={ {
             color: color,
         } }
-        >{ message }</p>
+        >{ message }</h1>
     );
 }
 
