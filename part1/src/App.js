@@ -1,8 +1,7 @@
-import { useState } from 'react';
-
 import './App.css';
 
-import Counter from './Counter';
+import Counter from './components/Counter';
+import Notes from './components/Notes';
 
 const initial = {
   left: 0,
@@ -10,37 +9,12 @@ const initial = {
 };
 
 const App = () => {
-  const [counters, setCounters] = useState(initial);
-
-  const handlerClickLeft = () => {
-    setCounters({
-      ...counters,
-      left: counters.left + 1
-    });
-  }
-
-  const handlerClickRight = () => {
-    setCounters({
-      ...counters,
-      right: counters.right + 1
-    });
-  }
-
-  const handlerReset = () => {
-    setCounters(initial);
-  }
-
-  const isEven = counters.counter % 2 === 0;
-  const messagePar = isEven ? 'Es Par' : 'Es Impar'
-
   return (
     <>
-      <Counter initial={ counters.left + counters.right } message={ messagePar } />
+      <Counter initial={ initial } />
       <hr/>
-      <Counter initial={ counters.left } /> - <Counter initial={ counters.right }/>
-      <button onClick={ handlerClickLeft } >Izquierda</button>
-      <button onClick={ handlerClickRight } >Derecha</button>
-      <button onClick={ handlerReset } >Reset</button>
+      <hr />
+      <Notes />
     </>
   );
 }
