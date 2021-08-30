@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js --exec babel-node"
+    "dev": "nodemon index.js --exec babel-node",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,10 @@
     "eslint-plugin-import": "2.24.2",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "5.1.0",
+    "jest": "27.1.0",
     "nodemon": "2.0.12"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
