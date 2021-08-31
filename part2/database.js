@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
-const connection = 'mongodb://localhost/pruebita'
+const { NODE_ENV, MONGO_DB_URI, MONGO_DB_URI_TEST } = process.env
+
+const connection = NODE_ENV === 'test' ? MONGO_DB_URI_TEST : MONGO_DB_URI
 
 mongoose.connect(connection)
   .then((_db) => console.log('Database is connected'))

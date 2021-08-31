@@ -1,6 +1,6 @@
 const { average } = require('../utils/fot_testing')
 
-describe('average', () => {
+describe.skip('average', () => {
   test('of one value', () => {
     expect(average([1])).toBe(1)
   })

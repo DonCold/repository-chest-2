@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 
+import './config'
 import './database.js'
 import Note from './models/Note.js'
 import { notFound } from './middlewares/notFound'
@@ -39,7 +40,7 @@ app.post('/api/notes', async (req, res) => {
   const note = new Note({ title, content })
   const saveNote = await note.save()
 
-  res.json(saveNote)
+  res.status(201).json(saveNote)
 })
 
 app.put('/api/notes/:id', async (req, res) => {
@@ -55,6 +56,8 @@ app.put('/api/notes/:id', async (req, res) => {
 
 app.use(notFound)
 
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
+
+export { app, server }
