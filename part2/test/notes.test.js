@@ -2,7 +2,12 @@ import moongose from 'mongoose'
 
 import { server } from '../index'
 import Note from '../models/Note'
-import { initialNotes, api } from './helper'
+import {
+  api,
+  getAllNotes,
+  initialNotes,
+  newNote
+} from './helper'
 
 describe('Notes', () => {
   test('Pagina principal', async () => {
@@ -21,18 +26,11 @@ describe('Notes', () => {
   })
 
   test('Verificando Datos', async () => {
-    const res = await api.get('/api/notes')
-    const contents = res.body.map(r => r.content)
+    const { contents } = await getAllNotes()
     expect(contents).toContain('HTML is easy')
   })
 
   test('nueva nota', async () => {
-    const newNote = {
-      title: 'Test note',
-      content: 'Browser can execute only Javascript',
-      important: false
-    }
-
     const res = await api
       .post('/api/notes')
       .send(newNote)
@@ -41,16 +39,28 @@ describe('Notes', () => {
     expect(res.body.content).toBe(newNote.content)
     expect(res.body.title).toBe(newNote.title)
   })
+
+  test('eliminando nota', async () => {
+    const { resBody } = await getAllNotes()
+    const noteToDelete = resBody[0]
+
+    const res = await api
+      .delete(`/api/notes/${noteToDelete._id}`)
+      .expect(200)
+    expect(res.body.content).toBe(noteToDelete.content)
+    expect(res.body.title).toBe(noteToDelete.title)
+
+    const { contents } = await getAllNotes()
+    expect(contents).not.toContain(noteToDelete.content)
+  })
 })
 
 beforeEach(async () => {
   await Note.deleteMany({})
 
-  const note1 = new Note(initialNotes[0])
-  await note1.save()
-
-  const note2 = new Note(initialNotes[1])
-  await note2.save()
+  for (const note of initialNotes) {
+    await new Note(note).save()
+  }
 })
 
 afterAll(() => {

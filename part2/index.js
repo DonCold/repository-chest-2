@@ -31,8 +31,12 @@ app.get('/api/notes/:id', async (req, res) => {
 
 app.delete('/api/notes/:id', async (req, res) => {
   const { id } = req.params
-  const deletedNote = await Note.findByIdAndDelete(id).catch(() => {})
-  res.json(deletedNote)
+  const deletedNote = await Note.findByIdAndDelete(id).catch(() => {
+    return res.status(404).json({ message: 'Note not found' })
+  })
+
+  if (!deletedNote) return res.status(404).json({ message: 'Note not found' })
+  res.status(200).json(deletedNote)
 })
 
 app.post('/api/notes', async (req, res) => {
