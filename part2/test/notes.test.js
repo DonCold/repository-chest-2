@@ -2,6 +2,7 @@ import moongose from 'mongoose'
 
 import { server } from '../index'
 import Note from '../models/Note'
+
 import {
   api,
   getAllNotes,
@@ -45,7 +46,7 @@ describe('Notes', () => {
     const noteToDelete = resBody[0]
 
     const res = await api
-      .delete(`/api/notes/${noteToDelete._id}`)
+      .delete(`/api/notes/${noteToDelete.id}`)
       .expect(200)
     expect(res.body.content).toBe(noteToDelete.content)
     expect(res.body.title).toBe(noteToDelete.title)
