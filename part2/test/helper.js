@@ -30,3 +30,12 @@ export const getAllNotes = async () => {
     contents: res.body.map(note => note.content)
   }
 }
+
+export const getUsers = async () => {
+  const res = await api.get('/api/users')
+  return {
+    res,
+    resBody: res.body,
+    contents: res.body.map(user => user.name)
+  }
+}

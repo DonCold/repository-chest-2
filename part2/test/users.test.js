@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import User from './../models/User'
 
 import { server } from '../index'
-import { api } from './helper'
+import { api, getUsers } from './helper'
 
 describe('users', () => {
   test('should create User', async () => {
@@ -22,13 +22,31 @@ describe('users', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    const users = await User.find()
-    const userAtEnd = users.map(user => user.toJSON())
+    const { resBody } = await getUsers()
+    expect(resBody.length).toBe(userAtStart.length + 1)
 
-    expect(userAtEnd.length).toBe(userAtStart.length + 1)
-
-    const usernames = userAtEnd.map(user => user.name)
+    const usernames = resBody.map(user => user.name)
     expect(usernames).toContain(newUser.name)
+  })
+
+  test('email is already taken', async () => {
+    const { resBody } = await getUsers()
+
+    const newUser = {
+      name: 'Test',
+      email: resBody[0].email,
+      password: '123456'
+    }
+
+    const result = await api.post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('email already exists')
+
+    const { resBody: userAtEnd } = await getUsers()
+    expect(userAtEnd.length).toBe(resBody.length)
   })
 })
 

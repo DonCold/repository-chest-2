@@ -21,7 +21,7 @@ userRoute.post('/', async (req, res) => {
 
   newUser.save((err, user) => {
     if (err) {
-      res.send(err)
+      res.status(400).send({ error: 'email already exists' })
     }
     res.status(201).json(user)
   })
