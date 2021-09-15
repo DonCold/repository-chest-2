@@ -5,13 +5,16 @@ import User from './../models/User'
 
 const userRoute = Router()
 
-userRoute.get('/', (req, res) => {
-  User.find({}, (err, users) => {
-    if (err) {
-      res.send(err)
-    }
+userRoute.get('/', async (req, res) => {
+  try {
+    const users = await User.find().populate('notes', {
+      title: 1,
+      content: 1
+    })
     res.json(users)
-  })
+  } catch (error) {
+    res.json({ error })
+  }
 })
 
 userRoute.post('/', async (req, res) => {
