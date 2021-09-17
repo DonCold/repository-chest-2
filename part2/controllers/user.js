@@ -3,9 +3,11 @@ import bcrypt from 'bcrypt'
 
 import User from './../models/User'
 
+import { Auth } from '../middlewares/auth'
+
 const userRoute = Router()
 
-userRoute.get('/', async (req, res) => {
+userRoute.get('/', Auth, async (req, res) => {
   try {
     const users = await User.find().populate('notes', {
       title: 1,
@@ -30,7 +32,7 @@ userRoute.post('/', async (req, res) => {
   })
 })
 
-userRoute.get('/:id', (req, res) => {
+userRoute.get('/:id', Auth, (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
       res.send(err)
@@ -39,7 +41,7 @@ userRoute.get('/:id', (req, res) => {
   })
 })
 
-userRoute.put('/:id', (req, res) => {
+userRoute.put('/:id', Auth, (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, user) => {
     if (err) {
       res.send(err)
@@ -48,7 +50,7 @@ userRoute.put('/:id', (req, res) => {
   })
 })
 
-userRoute.delete('/:id', (req, res) => {
+userRoute.delete('/:id', Auth, (req, res) => {
   User.findByIdAndRemove(req.params.id, (err, user) => {
     if (err) {
       res.send(err)

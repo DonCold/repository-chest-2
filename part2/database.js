@@ -9,5 +9,6 @@ mongoose.connect(connection)
   .catch((_err) => console.log(_err))
 
 process.on('uncaughtException', () => {
-  mongoose.connection.disconnect()
+  mongoose.connection.close()
+  process.exit(1)
 })

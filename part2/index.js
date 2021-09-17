@@ -8,6 +8,7 @@ import { notFound } from './middlewares/notFound'
 
 import noteRouter from './controllers/notes'
 import userRouter from './controllers/user'
+import loginRouter from './controllers/login'
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.get('/', async (req, res) => {
 
 app.use('/api/notes', noteRouter)
 app.use('/api/users', userRouter)
+app.use('/api/login', loginRouter)
 app.use(notFound)
 
 const server = app.listen(process.env.PORT || 3000, () => {

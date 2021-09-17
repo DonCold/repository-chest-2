@@ -4,7 +4,7 @@ const noteSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   important: Boolean,
-  userId: { type: Schema.Types.ObjectId, ref: 'User' }
+  user: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
   timestamps: true,
   versionKey: false
