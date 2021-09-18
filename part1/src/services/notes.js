@@ -1,15 +1,22 @@
-import axios from 'axios';
+import instance from './axios';
 
-const instance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com'
-});
+export let token = null;
+
+export const setToken = newToken => {
+  token = newToken;
+}
 
 export const getAllNotes = async () => {
-    const res = await instance.get( '/posts' );
+    const res = await instance.get( '/notes' );
     return res.data;
 }
 
-export const submitNotes = async ( noteToAddToState ) => {
-    const res = await instance.post( '/posts', noteToAddToState);
+export const submitNotes = async ( noteToAddToState, { token } ) => {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+    const res = await instance.post( '/notes', noteToAddToState, config);
     return res.data;
 }

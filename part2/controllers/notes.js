@@ -6,7 +6,7 @@ import { Auth } from '../middlewares/auth'
 
 const noteRouter = Router()
 
-noteRouter.get('/', Auth, async (req, res) => {
+noteRouter.get('/', async (req, res) => {
   const notes = await Note.find().populate('user', {
     name: 1,
     email: 1

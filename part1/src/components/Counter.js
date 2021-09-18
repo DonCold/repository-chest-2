@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Mensaje from './Mensaje';
 
-const Counter = ({ initial }) => {
+const Counter = ({ initial, color }) => {
   const [counters, setCounters] = useState(initial);
 
   const handlerClickLeft = () => {
@@ -29,7 +29,7 @@ const Counter = ({ initial }) => {
 
   return (
     <>
-      <Mensaje color="blue" message={ messagePar } />
+      <Mensaje color={color} message={ messagePar } />
       { counters.left } - { counters.right } <strong>Total: { total }</strong>
       <br />
       <button onClick={ handlerClickLeft } >Izquierda</button>

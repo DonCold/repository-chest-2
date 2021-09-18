@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
-import { getAllNotes, submitNotes } from '../services/notes';
+import { handleLogout } from '../services/login'
+import { getAllNotes, submitNotes, token } from '../services/notes';
 
-const Note = ({ title, body }) => {
+const Note = ({ title, content, user }) => {
   return (
     <li>
-      <strong>{ title }</strong>
-      <p>{ body }</p>
+      <p><strong>{ title }</strong>: { content } &gt; <small>{ user }</small></p>
     </li>
   )
 }
 
-const FormNotes = ({ sendNote }) => {
+const FormNotes = ({ sendNote, setUser }) => {
   const [newNote, setNewNote] = useState('');
 
   const handleChange = (e) => {
@@ -25,14 +25,17 @@ const FormNotes = ({ sendNote }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={newNote} onChange={handleChange} />
-      <button type="submit">Crear Nota</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={newNote} onChange={handleChange} />
+        <button type="submit">Crear Nota</button>
+      </form>
+      <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
+    </>
   )
 }
 
-const FetchNotes = () => {
+const FetchNotes = ({ setUser }) => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,11 +54,10 @@ const FetchNotes = () => {
 
   const handleSubmit = async ( newNote ) => {
     const noteToAddToState = {
-      userId: 1,
       title: newNote,
-      body: newNote
+      content: newNote
     }
-    const postRes = await submitNotes( noteToAddToState );
+    const postRes = await submitNotes( noteToAddToState, { token } );
     setNotes([...notes, postRes]);
   }
 
@@ -67,11 +69,11 @@ const FetchNotes = () => {
         }
         {
           notes?.map( (note) => (
-            <Note key={ note.id } title={ note.title } body={ note.body } />
+            <Note key={ note.id } title={ note.title } content={ note.content } user={ note.user.name } />
           ) )
         }
       </ol>
-      <FormNotes sendNote={handleSubmit} />
+      <FormNotes sendNote={handleSubmit} setUser={ setUser } />
     </>
   )
 }
