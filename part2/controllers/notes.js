@@ -31,11 +31,12 @@ noteRouter.delete('/:id', Auth, async (req, res) => {
 })
 
 noteRouter.post('/', Auth, async (req, res) => {
-  const { title, content, userId } = req.body
-  const user = await User.findById(userId).catch(() => {})
+  const { title, content } = req.body
+
+  const user = await User.findById(req.userId).catch(() => {})
   if (!user) return res.status(404).json({ error: 'User not found' })
 
-  const note = new Note({ title, content, user: user._id })
+  const note = new Note({ title, content, user: req.userId })
   const saveNote = await note.save()
 
   user.notes = user.notes.concat(saveNote._id)

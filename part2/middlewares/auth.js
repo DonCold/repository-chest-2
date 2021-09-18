@@ -17,6 +17,7 @@ export const Auth = async (req, res, next) => {
 
     if (!token || !decodedToken.id) return res.status(401).json({ error: 'token missing or invalid' })
 
+    req.userId = decodedToken.id
     next()
   } catch (error) {
     return res.status(401).json({ error: 'token missing or invalid' })

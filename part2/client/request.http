@@ -24,8 +24,7 @@ Authorization: Bearer <token>
 
 {
   "title": "test",
-  "content": "test",
-  "userId": "6144105964668b0b3ed6d0f8"
+  "content": "test"
 }
 
 ### get notes
