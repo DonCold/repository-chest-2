@@ -1,12 +1,11 @@
 import FetchNotes from './Fetch';
-import Mensaje from './Mensaje';
 
-const Notes = ({ setUser }) => {
+const Notes = ({ setUser, notes, setNotes }) => {
 
   return (
     <>
-      <Mensaje  message="Notes" color="black" />
-      <FetchNotes setUser={ setUser }/>
+      <h1>Notas</h1>
+      <FetchNotes notes={notes} setNotes={setNotes} setUser={ setUser }/>
     </>
   )
 }

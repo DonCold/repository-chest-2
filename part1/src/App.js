@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 
-import Counter from './components/Counter';
 import Notes from './components/Notes';
 import Login from './components/Login';
 
-import { setToken } from './services/notes';
-
-const initial = {
-  left: 0,
-  right: 0
-};
+import { setToken, submitNotes, token, getAllNotes} from './services/notes';
+import FormNotes from './components/FormNotes';
+import Togglable from './components/Togglable';
 
 const App = () => {
+  const [notes, setNotes] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -24,15 +21,27 @@ const App = () => {
     }
   }, []);
 
+  const noteSubmit = async ( newNote ) => {
+    const noteToAddToState = {
+      title: newNote,
+      content: newNote
+    }
+
+    await submitNotes( noteToAddToState, { token } );
+    const newNotes = await getAllNotes();
+    setNotes(newNotes);
+  }
+
   return (
     <>
-      <Counter initial={ initial } color="red"/>
-      <Counter initial={ initial } color="blue" />
-      <hr/>
-      <hr />
       {
-        user ? <Notes setUser={ setUser } /> : <Login setUser={ setUser } />
+      user
+        ? <FormNotes sendNote={noteSubmit} setUser={ setUser } />
+        : <Togglable showLabel="Login" hiddenLabel="Cancelar">
+            <Login setUser={ setUser } />
+          </Togglable>
       }
+      <Notes notes={notes} setNotes={setNotes} setUser={ setUser } />
     </>
   );
 }

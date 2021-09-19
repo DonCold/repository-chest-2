@@ -1,42 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { handleLogout } from '../services/login'
-import { getAllNotes, submitNotes, token } from '../services/notes';
+import { getAllNotes } from '../services/notes';
+import Note from './Note';
 
-const Note = ({ title, content, user }) => {
-  return (
-    <li>
-      <p><strong>{ title }</strong>: { content } &gt; <small>{ user }</small></p>
-    </li>
-  )
-}
-
-const FormNotes = ({ sendNote, setUser }) => {
-  const [newNote, setNewNote] = useState('');
-
-  const handleChange = (e) => {
-    setNewNote( e.target.value );
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    sendNote(newNote);
-    setNewNote('');
-  }
-
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={newNote} onChange={handleChange} />
-        <button type="submit">Crear Nota</button>
-      </form>
-      <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
-    </>
-  )
-}
-
-const FetchNotes = ({ setUser }) => {
-  const [notes, setNotes] = useState([]);
+const FetchNotes = ({ notes, setNotes }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect( () => {
@@ -50,16 +17,7 @@ const FetchNotes = ({ setUser }) => {
     }
 
     fetchNote();
-  }, []);
-
-  const handleSubmit = async ( newNote ) => {
-    const noteToAddToState = {
-      title: newNote,
-      content: newNote
-    }
-    const postRes = await submitNotes( noteToAddToState, { token } );
-    setNotes([...notes, postRes]);
-  }
+  }, [setNotes]);
 
   return (
     <>
@@ -73,7 +31,6 @@ const FetchNotes = ({ setUser }) => {
           ) )
         }
       </ol>
-      <FormNotes sendNote={handleSubmit} setUser={ setUser } />
     </>
   )
 }
