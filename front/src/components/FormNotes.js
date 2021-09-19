@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
-import Togglable from './Togglable';
+import PropTypes from 'prop-types'
+
+import Togglable from './Togglable'
 
 const FormNotes = ({ sendNote }) => {
   const [newTitle, setNewTitle] = useState('');
@@ -35,6 +37,10 @@ const FormNotes = ({ sendNote }) => {
       </Togglable>
     </>
   )
+}
+
+FormNotes.propTypes = {
+  sendNote: PropTypes.func.isRequired
 }
 
 export default FormNotes;

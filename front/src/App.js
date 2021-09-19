@@ -38,12 +38,14 @@ const App = () => {
     <>
       {
       user
-        ? <FormNotes sendNote={noteSubmit} />
+        ? <div>
+            <FormNotes sendNote={noteSubmit} />
+            <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
+          </div>
         : <Togglable showLabel="Login" hiddenLabel="Cancelar">
             <Login setUser={ setUser } />
           </Togglable>
       }
-      <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
       <Notes notes={notes} setNotes={setNotes} setUser={ setUser } />
     </>
   );
