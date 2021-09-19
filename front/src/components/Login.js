@@ -23,8 +23,8 @@ const Login = ({ setUser }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña"/>
         <button type="submit">Login</button>
       </form>
     </>

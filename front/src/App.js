@@ -4,7 +4,9 @@ import './App.css';
 import Notes from './components/Notes';
 import Login from './components/Login';
 
-import { setToken, submitNotes, token, getAllNotes} from './services/notes';
+import { setToken, submitNotes, token, getAllNotes } from './services/notes';
+import { handleLogout } from './services/login'
+
 import FormNotes from './components/FormNotes';
 import Togglable from './components/Togglable';
 
@@ -21,10 +23,10 @@ const App = () => {
     }
   }, []);
 
-  const noteSubmit = async ( newNote ) => {
+  const noteSubmit = async ( { title, content } ) => {
     const noteToAddToState = {
-      title: newNote,
-      content: newNote
+      title,
+      content
     }
 
     await submitNotes( noteToAddToState, { token } );
@@ -36,11 +38,12 @@ const App = () => {
     <>
       {
       user
-        ? <FormNotes sendNote={noteSubmit} setUser={ setUser } />
+        ? <FormNotes sendNote={noteSubmit} />
         : <Togglable showLabel="Login" hiddenLabel="Cancelar">
             <Login setUser={ setUser } />
           </Togglable>
       }
+      <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
       <Notes notes={notes} setNotes={setNotes} setUser={ setUser } />
     </>
   );
