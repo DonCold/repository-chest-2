@@ -46,7 +46,7 @@ const App = () => {
             <Login setUser={ setUser } />
           </Togglable>
       }
-      <Notes notes={notes} setNotes={setNotes} setUser={ setUser } />
+      <Notes notes={notes} setNotes={setNotes} />
     </>
   );
 }

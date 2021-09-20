@@ -26,8 +26,8 @@ app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use(notFound)
 
-const server = app.listen(process.env.PORT || 3000, () => {
-  console.log(`Example app listening on port ${process.env.PORT || 3000}!`)
+const server = app.listen(process.env.PORT || 3001, () => {
+  console.log(`Example app listening on port ${process.env.PORT || 3001}!`)
 })
 
 export { app, server }

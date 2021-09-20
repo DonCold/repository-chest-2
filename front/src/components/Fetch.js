@@ -10,7 +10,7 @@ const FetchNotes = ({ notes, setNotes }) => {
     const fetchNote = async () => {
       setLoading(true);
 
-      const notesRes = await getAllNotes();
+      const notesRes = await getAllNotes()
       setNotes( notesRes );
 
       setLoading(false);
