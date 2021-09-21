@@ -7,7 +7,8 @@
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
     "axios": "0.21.4",
-    "prop-types": "^15.7.2",
+    "eslint-plugin-cypress": "2.12.1",
+    "prop-types": "15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-scripts": "4.0.3",
@@ -18,12 +19,19 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "coverage": "react-scripts test --coverage"
+    "coverage": "react-scripts test --coverage",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
+    "env": {
+      "cypress/globals": true
+    },
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "plugins": [
+      "cypress"
     ]
   },
   "browserslist": {
@@ -37,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "8.4.1"
   }
 }
