@@ -10,8 +10,11 @@ import noteRouter from './controllers/notes'
 import userRouter from './controllers/user'
 import loginRouter from './controllers/login'
 
+import { initialSetup } from './libs/initialSetup'
+
 const app = express()
 
+initialSetup()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())

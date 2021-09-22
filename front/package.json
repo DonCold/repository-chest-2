@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --coverage",
-    "cypress:open": "cypress open"
+    "cy:open": "cypress open"
   },
   "eslintConfig": {
     "env": {

@@ -17,8 +17,8 @@ describe('Note App', () => {
 
   it('user can login', () => {
     cy.contains('Login').click()
-    cy.get('input').first().type('admin@admin.com')
-    cy.get('input').last().type('admin password')
+    cy.get('input').first().type('test@test.com')
+    cy.get('input').last().type('123456')
     cy.get('#form-login-button').click()
   })
 })
