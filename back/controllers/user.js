@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 import User from './../models/User'
 
@@ -25,10 +26,13 @@ userRoute.post('/', async (req, res) => {
   const newUser = new User({ name, email, password: hashPassword })
 
   newUser.save((err, user) => {
-    if (err) {
-      res.status(400).send({ error: 'email already exists' })
-    }
-    res.status(201).json(user)
+    if (err) return res.status(400).send({ error: 'email already exists' })
+
+    const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET, {
+      expiresIn: '1d'
+    })
+
+    res.status(201).json({ user, token })
   })
 })
 

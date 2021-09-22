@@ -17,7 +17,7 @@ export const initialNotes = [
 ]
 
 export const newNote = {
-  title: 'Test note',
+  title: 'Test note xD',
   content: 'Browser can execute only Javascript',
   important: false
 }
@@ -31,11 +31,10 @@ export const getAllNotes = async () => {
   }
 }
 
-export const getUsers = async () => {
-  const res = await api.get('/api/users')
+export const getUsers = async (token) => {
+  const res = await api.get('/api/users').set('Authorization', `Bearer ${token}`)
   return {
     res,
-    resBody: res.body,
-    contents: res.body.map(user => user.name)
+    resBody: res.body
   }
 }
