@@ -20,5 +20,25 @@ describe('Note App', () => {
     cy.get('input').first().type('test@test.com')
     cy.get('input').last().type('123456')
     cy.get('#form-login-button').click()
+    cy.contains('Nueva Nota')
+  })
+
+  describe('when logged in', () => {
+    beforeEach(() => {
+      cy.contains('Login').click()
+      cy.get('input').first().type('test@test.com')
+      cy.get('input').last().type('123456')
+      cy.get('#form-login-button').click()
+    })
+
+    it('a new note can be created', () => {
+      cy.contains('Nueva Nota').click()
+      cy.get('[placeholder="Titulo"]').type('Test note')
+      cy.get('[placeholder="Descripcion"]').type('Test note content')
+      cy.contains('Crear Nota').click()
+
+      cy.contains('Test note')
+      cy.contains('Test note content')
+    })
   })
 })
