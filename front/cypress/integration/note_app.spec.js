@@ -1,6 +1,14 @@
 describe('Note App', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
+    cy.request('POST', 'http://localhost:3001/api/testing/reset')
+
+    const user = {
+      name: 'Test',
+      email: 'test@test.com',
+      password: '123456'
+    }
+    cy.request('POST', 'http://localhost:3001/api/users', user)
   })
 
   it('frontpage can be opened', () => {

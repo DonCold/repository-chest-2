@@ -1,5 +1,5 @@
 ### login user
-POST http://localhost:3000/api/login
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### create user
-POST http://localhost:3000/api/users
+POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### create note
-POST http://localhost:3000/api/notes
+POST http://localhost:3001/api/notes
 Content-Type: application/json
 Authorization: Bearer <token>
 
@@ -28,9 +28,13 @@ Authorization: Bearer <token>
 }
 
 ### get notes
-GET http://localhost:3000/api/notes
+GET http://localhost:3001/api/notes
 Authorization: Bearer <token>
 
 ### get users
-GET http://localhost:3000/api/users
+GET http://localhost:3001/api/users
 Authorization: Bearer <token>
+
+
+### reset db
+POST http://localhost:3001/api/testing/reset
