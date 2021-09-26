@@ -18,9 +18,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "cypress run",
+    "cy:open": "cypress open",
     "eject": "react-scripts eject",
-    "coverage": "react-scripts test --coverage",
-    "cy:open": "cypress open"
+    "coverage": "react-scripts test --coverage"
   },
   "eslintConfig": {
     "env": {
