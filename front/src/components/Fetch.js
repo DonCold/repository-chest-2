@@ -19,16 +19,17 @@ const FetchNotes = ({ notes, setNotes }) => {
     fetchNote();
   }, [setNotes]);
 
+  if (loading) return <div>Cargando...</div>
+
   return (
     <>
       <ol>
         {
-          loading ? <strong>Cargando...</strong> : ''
-        }
-        {
-          notes?.map( (note) => (
-            <Note key={ note.id } title={ note.title } content={ note.content } user={ note.user.name } />
+          notes.length > 0
+          ? notes?.map( (note) => (
+            <Note key={ note.id } title={ note.title } content={ note.content } user={ note.user?.name } />
           ) )
+          : 'No hay ninguna nota por el momento.'
         }
       </ol>
     </>

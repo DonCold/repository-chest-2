@@ -12,4 +12,3 @@ export const handleLogout = (setUser) => {
   setToken(null);
   setUser(null);
 }
-
