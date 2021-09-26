@@ -28,7 +28,7 @@ Cypress.Commands.add('login', ({ email, password }) => {
   cy.request('POST', 'http://localhost:3001/api/login', {
     email,
     password
-  }).then (response => {
+  }).then(response => {
     localStorage.setItem('user', JSON.stringify(response.body))
   })
   cy.visit('http://localhost:3000')

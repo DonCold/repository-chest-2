@@ -1,0 +1,36 @@
+{
+  "name": "bootcamp-midu",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "",
+  "workspaces": [
+    "back",
+    "front"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "build": "npm run build --workspace=front",
+    "start": "npm run dev --workspace=back",
+    "start:front": "npm run start --workspace=front"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonCold/bootcamp-midu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonCold/bootcamp-midu/issues"
+  },
+  "homepage": "https://github.com/DonCold/bootcamp-midu#readme",
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.0",
+    "eslint-plugin-cypress": "2.12.1"
+  }
+}

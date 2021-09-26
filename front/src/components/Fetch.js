@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-import { getAllNotes } from '../services/notes';
-import Note from './Note';
+import { getAllNotes } from '../services/notes'
+import Note from './Note'
 
 const FetchNotes = ({ notes, setNotes }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
-  useEffect( () => {
+  useEffect(() => {
     const fetchNote = async () => {
-      setLoading(true);
+      setLoading(true)
 
       const notesRes = await getAllNotes()
-      setNotes( notesRes );
+      setNotes(notesRes)
 
-      setLoading(false);
+      setLoading(false)
     }
 
-    fetchNote();
-  }, [setNotes]);
+    fetchNote()
+  }, [setNotes])
 
   if (loading) return <div>Cargando...</div>
 
@@ -26,14 +26,14 @@ const FetchNotes = ({ notes, setNotes }) => {
       <ol>
         {
           notes.length > 0
-          ? notes?.map( (note) => (
+            ? notes?.map((note) => (
             <Note key={ note.id } title={ note.title } content={ note.content } user={ note.user?.name } />
-          ) )
-          : 'No hay ninguna nota por el momento.'
+            ))
+            : 'No hay ninguna nota por el momento.'
         }
       </ol>
     </>
   )
 }
 
-export default FetchNotes;
+export default FetchNotes

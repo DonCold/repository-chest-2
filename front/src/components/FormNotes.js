@@ -4,25 +4,25 @@ import PropTypes from 'prop-types'
 import Togglable from './Togglable'
 
 const FormNotes = ({ sendNote }) => {
-  const [newTitle, setNewTitle] = useState('');
-  const [newNote, setNewNote] = useState('');
+  const [newTitle, setNewTitle] = useState('')
+  const [newNote, setNewNote] = useState('')
 
-  const togglableRef = useRef();
+  const togglableRef = useRef()
 
   const handleChangeNote = (e) => {
-    setNewNote( e.target.value );
+    setNewNote(e.target.value)
   }
 
   const handleChangeTitle = (e) => {
-    setNewTitle( e.target.value );
+    setNewTitle(e.target.value)
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    sendNote({ title: newTitle, content: newNote });
-    setNewNote('');
-    setNewTitle('');
-    togglableRef.current.toggleVisibility();
+    e.preventDefault()
+    sendNote({ title: newTitle, content: newNote })
+    setNewNote('')
+    setNewTitle('')
+    togglableRef.current.toggleVisibility()
   }
 
   return (
@@ -43,4 +43,4 @@ FormNotes.propTypes = {
   sendNote: PropTypes.func.isRequired
 }
 
-export default FormNotes;
+export default FormNotes

@@ -1,5 +1,5 @@
 {
-  "name": "part1",
+  "name": "front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,6 @@
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
     "axios": "0.21.4",
-    "eslint-plugin-cypress": "2.12.1",
     "prop-types": "15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -22,18 +21,6 @@
     "cy:open": "cypress open",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --coverage"
-  },
-  "eslintConfig": {
-    "env": {
-      "cypress/globals": true
-    },
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "plugins": [
-      "cypress"
-    ]
   },
   "browserslist": {
     "production": [

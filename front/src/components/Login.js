@@ -4,19 +4,19 @@ import { sendLogin } from '../services/login'
 import { setToken } from '../services/notes'
 
 const Login = ({ setUser }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const user = await sendLogin({ email, password });
-      setToken(user.token);
-      setUser(user);
+      const user = await sendLogin({ email, password })
+      setToken(user.token)
+      setUser(user)
 
-      window.localStorage.setItem('user', JSON.stringify(user));
+      window.localStorage.setItem('user', JSON.stringify(user))
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
@@ -31,4 +31,4 @@ const Login = ({ setUser }) => {
   )
 }
 
-export default Login;
+export default Login

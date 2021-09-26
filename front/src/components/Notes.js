@@ -1,7 +1,6 @@
-import FetchNotes from './Fetch';
+import FetchNotes from './Fetch'
 
 const Notes = ({ notes, setNotes }) => {
-
   return (
     <>
       <h1>Notas</h1>
@@ -10,4 +9,4 @@ const Notes = ({ notes, setNotes }) => {
   )
 }
 
-export default Notes;
+export default Notes
