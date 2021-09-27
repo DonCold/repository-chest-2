@@ -1,12 +1,20 @@
-import React from 'react';
-import Counter from './Counter';
-import Note from './Note';
+import React, { useState } from 'react';
+import Counter from './components/Counter';
+import Note from './components/Note';
+
+import { store } from './components/Note';
 
 const App = () => {
+  const [change, setChange] = useState(false);
+
+  store.subscribe(() => {
+    setChange(!change);
+  })
+
   return (
     <>
       <Counter />
-      <Note />
+      <Note change={change}/>
     </>
   )
 }
