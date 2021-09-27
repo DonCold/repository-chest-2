@@ -1,29 +1,14 @@
 import React from 'react';
-import { createStore } from "redux";
+import { useSelector } from 'react-redux';
 
-import { noteReducer, createNote } from '../reducers/noteReducer';
-
-export const store = createStore( noteReducer );
+import FormNote from './FormNote';
 
 const Note = () => {
-  const state = store.getState();
-
-  const addNote = (e) => {
-    e.preventDefault();
-    const { target } = e;
-
-    const content = target.note.value;
-    store.dispatch(createNote(content));
-
-    target.note.value = '';
-  }
+  const state = useSelector(state => state);
 
   return (
     <div>
-      <form onSubmit={addNote}>
-        <input type="text" name="note"/>
-        <button type="submit">add</button>
-      </form>
+      <FormNote/>
       <ul>
         {
           state.map(note => (
