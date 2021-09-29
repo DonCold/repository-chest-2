@@ -1,13 +1,9 @@
-const initialState = [
-  {
-    content: 'Primera Nota',
-    important: false,
-    id: 1,
-    title: 'Primera Nota'
-  }
-];
+export const noteReducer = (state = [], action) => {
 
-export const noteReducer = (state = initialState, action) => {
+  if (action.type === '@notes/init') {
+    return action.payload;
+  }
+
   if (action.type === '@notes/created') {
     return state.concat(action.payload);
   }
@@ -45,12 +41,18 @@ export const createNote = (content) => {
   }
 }
 
-
 export const toggleImportant = (id) => {
   return {
     type: '@notes/toggleImportant',
     payload: {
       id
     }
+  }
+}
+
+export const initNotes = (notes) => {
+  return {
+    type: '@notes/init',
+    payload: notes
   }
 }

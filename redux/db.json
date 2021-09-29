@@ -1,0 +1,16 @@
+{
+  "notes": [
+    {
+      "content": "Primera Nota",
+      "important": false,
+      "id": 1,
+      "title": "Primera Nota"
+    },
+    {
+      "content": "2da Nota",
+      "important": true,
+      "id": 2,
+      "title": "2da Nota"
+    }
+  ]
+}
