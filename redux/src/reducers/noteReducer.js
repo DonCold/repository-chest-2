@@ -1,5 +1,6 @@
-export const noteReducer = (state = [], action) => {
+import { getNotes, createNote } from '../services/notes';
 
+export const noteReducer = (state = [], action) => {
   if (action.type === '@notes/init') {
     return action.payload;
   }
@@ -29,15 +30,14 @@ export const noteReducer = (state = [], action) => {
   return state;
 }
 
-export const createNote = (content) => {
-  return {
-    type: '@notes/created',
-    payload: {
-      id: Date.now(),
-      title: 'Note ' + Date.now(),
-      content,
-      important: true
-    }
+export const submitNote = content => {
+  return async dispatch => {
+    const newNote = await createNote(content);
+
+    dispatch({
+      type: '@notes/created',
+      payload: newNote
+    });
   }
 }
 
@@ -50,9 +50,13 @@ export const toggleImportant = (id) => {
   }
 }
 
-export const initNotes = (notes) => {
-  return {
-    type: '@notes/init',
-    payload: notes
+export const initNotes = () => {
+  return async dispatch => {
+    const notes = await getNotes();
+
+    dispatch({
+      type: '@notes/init',
+      payload: notes
+    });
   }
 }
