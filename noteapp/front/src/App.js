@@ -1,53 +1,49 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useState } from 'react'
 
-import Notes from './components/Notes'
-import Login from './components/Login'
-
-import { setToken, submitNotes, token, getAllNotes } from './services/notes'
-import { handleLogout } from './services/login'
-
-import FormNotes from './components/FormNotes'
-import Togglable from './components/Togglable'
+const Home = () => <h1>Home</h1>
+const Notes = () => <h1>Notes</h1>
+const Users = () => <h1>Users</h1>
+const NotFound = () => <h1>404</h1>
 
 const App = () => {
-  const [notes, setNotes] = useState([])
-  const [user, setUser] = useState(null)
+  const [currentPage, setCurrentPage] = useState(() => {
+    const { pathname } = window.location
+    return pathname.substr(1) || 'home'
+  })
 
-  useEffect(() => {
-    const userSession = localStorage.getItem('user')
-    if (userSession) {
-      const userArray = JSON.parse(userSession)
-      setUser(userArray)
-      setToken(userArray.token)
+  const getContent = () => {
+    switch (currentPage) {
+      case 'home':
+        return <Home />
+      case 'notes':
+        return <Notes />
+      case 'users':
+        return <Users />
+      default:
+        return <NotFound />
     }
-  }, [])
+  }
 
-  const noteSubmit = async ({ title, content }) => {
-    const noteToAddToState = {
-      title,
-      content
-    }
+  const padding = {
+    padding: '5px'
+  }
 
-    await submitNotes(noteToAddToState, { token })
-    const newNotes = await getAllNotes()
-    setNotes(newNotes)
+  const toPage = page => event => {
+    window.history.pushState(null, '', `/${page}`)
+    event.preventDefault()
+    setCurrentPage(page)
   }
 
   return (
-    <>
-      {
-      user
-        ? <div>
-            <FormNotes sendNote={noteSubmit} />
-            <button onClick={() => { handleLogout(setUser) }}>Cerrar Sesion</button>
-          </div>
-        : <Togglable showLabel="Login" hiddenLabel="Cancelar">
-            <Login setUser={ setUser } />
-          </Togglable>
-      }
-      <Notes notes={notes} setNotes={setNotes} />
-    </>
+    <div>
+      <header>
+        <a href="#" style={ padding } onClick={ toPage('home') }>Home</a>
+        <a href="#" style={ padding } onClick={ toPage('notes') }>Notes</a>
+        <a href="#" style={ padding } onClick={ toPage('users') }>Users</a>
+      </header>
+      {getContent()}
+    </div>
   )
 }
 
