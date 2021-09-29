@@ -26,10 +26,7 @@ const actionReset = {
   type: "@counter/reset"
 };
 
-const store = createStore(
-  counterReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(counterReducer);
 
 store.dispatch(actionIncremented);
 store.dispatch(actionIncremented);

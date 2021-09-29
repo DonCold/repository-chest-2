@@ -1,12 +1,12 @@
 import React from 'react';
 import Counter from './components/Counter';
-import Note from './components/Note';
+import Notes from './components/Notes';
 
 const App = () => {
   return (
     <>
-      <Counter/>
-      <Note/>
+      {/* <Counter/> */}
+      <Notes/>
     </>
   )
 }

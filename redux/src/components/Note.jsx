@@ -1,22 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import FormNote from './FormNote';
+import { toggleImportant } from '../reducers/noteReducer';
 
-const Note = () => {
-  const state = useSelector(state => state);
+const Note = ({ note }) => {
+  const dispatch = useDispatch();
+
+  const handleToggleImportantNote = (id) => {
+    dispatch(toggleImportant(id));
+  };
 
   return (
-    <div>
-      <FormNote/>
-      <ul>
-        {
-          state.map(note => (
-            <li key={note.id}><strong>{ note.title }</strong>: { note.content }</li>
-          ))
-        }
-      </ul>
-    </div>
+    <li onClick={() => handleToggleImportantNote(note.id)}>
+      <strong>{ note.title }</strong>: { note.content } { note.important ? <small> =&gt; important</small> : '' }
+    </li>
   );
 }
 
