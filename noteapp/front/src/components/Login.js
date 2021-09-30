@@ -2,8 +2,11 @@ import { useState } from 'react'
 
 import { sendLogin } from '../services/login'
 import { setToken } from '../services/notes'
+import { useHistory } from 'react-router-dom'
 
-const Login = ({ setUser }) => {
+const Login = ({ user, setUser }) => {
+  const history = useHistory()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -13,12 +16,15 @@ const Login = ({ setUser }) => {
       const user = await sendLogin({ email, password })
       setToken(user.token)
       setUser(user)
+      history.push('/notes')
 
       window.localStorage.setItem('user', JSON.stringify(user))
     } catch (error) {
       console.log(error)
     }
   }
+
+  if (user) return <p>User is Logged</p>
 
   return (
     <>

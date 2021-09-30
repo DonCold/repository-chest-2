@@ -1,49 +1,69 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from 'react-router-dom'
+
+import { setToken } from './services/notes'
+
+import Notes from './pages/NotesPage'
+import NoteDetail from './components/NoteDetail'
+import Login from './components/Login'
 
 const Home = () => <h1>Home</h1>
-const Notes = () => <h1>Notes</h1>
 const Users = () => <h1>Users</h1>
-const NotFound = () => <h1>404</h1>
+
+const padding = {
+  padding: 5
+}
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(() => {
-    const { pathname } = window.location
-    return pathname.substr(1) || 'home'
-  })
+  const [notes, setNotes] = useState([])
+  const [user, setUser] = useState(null)
 
-  const getContent = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Home />
-      case 'notes':
-        return <Notes />
-      case 'users':
-        return <Users />
-      default:
-        return <NotFound />
+  useEffect(() => {
+    const userSession = localStorage.getItem('user')
+    if (userSession) {
+      const userArray = JSON.parse(userSession)
+      setUser(userArray)
+      setToken(userArray.token)
     }
-  }
-
-  const padding = {
-    padding: '5px'
-  }
-
-  const toPage = page => event => {
-    window.history.pushState(null, '', `/${page}`)
-    event.preventDefault()
-    setCurrentPage(page)
-  }
+  }, [])
 
   return (
-    <div>
+    <Router>
       <header>
-        <a href="#" style={ padding } onClick={ toPage('home') }>Home</a>
-        <a href="#" style={ padding } onClick={ toPage('notes') }>Notes</a>
-        <a href="#" style={ padding } onClick={ toPage('users') }>Users</a>
+        <Link to="/" style={ padding }>Home</Link>
+        <Link to="/notes" style={ padding }>Notes</Link>
+        <Link to="/users" style={ padding }>Users</Link>
+        {
+          user ? <em>Logged as { user.user.name }</em> : <Link to="/login" style={ padding } >Login</Link>
+        }
       </header>
-      {getContent()}
-    </div>
+
+      <Switch>
+        <Route path="/login" render={() => {
+          return user ? <Redirect to="/notes" /> : <Login user={user} setUser={setUser} />
+        }} />
+        <Route path="/notes/:noteId">
+          <NoteDetail notes={notes} />
+        </Route>
+        <Route path="/notes">
+          <Notes notes={notes} setNotes={setNotes} user={user} setUser={setUser} />
+        </Route>
+        <Route path="/users">
+          <Users />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
