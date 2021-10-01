@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -9,11 +6,12 @@ import {
   Link
 } from 'react-router-dom'
 
-import { setToken } from './services/notes'
-
-import Notes from './pages/NotesPage'
+import NotesPage from './pages/NotesPage'
 import NoteDetail from './components/NoteDetail'
 import Login from './components/Login'
+
+import { useUser } from './hook/useUser'
+import { useNotes } from './hook/useNotes'
 
 const Home = () => <h1>Home</h1>
 const Users = () => <h1>Users</h1>
@@ -23,17 +21,8 @@ const padding = {
 }
 
 const App = () => {
-  const [notes, setNotes] = useState([])
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const userSession = localStorage.getItem('user')
-    if (userSession) {
-      const userArray = JSON.parse(userSession)
-      setUser(userArray)
-      setToken(userArray.token)
-    }
-  }, [])
+  const { notes, addNote, loadingNote } = useNotes()
+  const { user, login, logout } = useUser()
 
   return (
     <Router>
@@ -48,13 +37,13 @@ const App = () => {
 
       <Switch>
         <Route path="/login" render={() => {
-          return user ? <Redirect to="/notes" /> : <Login user={user} setUser={setUser} />
+          return user ? <Redirect to="/notes" /> : <Login user={user} login={login} />
         }} />
         <Route path="/notes/:noteId">
           <NoteDetail notes={notes} />
         </Route>
         <Route path="/notes">
-          <Notes notes={notes} setNotes={setNotes} user={user} setUser={setUser} />
+          <NotesPage notes={notes} loading={loadingNote} addNote={addNote} user={user} logout={logout} />
         </Route>
         <Route path="/users">
           <Users />

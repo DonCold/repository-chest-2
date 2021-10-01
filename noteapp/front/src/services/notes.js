@@ -1,11 +1,5 @@
 import instance from './axios'
 
-export let token = null
-
-export const setToken = newToken => {
-  token = newToken
-}
-
 export const getAllNotes = async () => {
   const res = await instance.get('/notes')
   return res.data

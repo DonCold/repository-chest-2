@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-import { sendLogin } from '../services/login'
-import { setToken } from '../services/notes'
+import { sendLogin, setToken } from '../services/login'
 import { useHistory } from 'react-router-dom'
 
-const Login = ({ user, setUser }) => {
+const Login = ({ user, login }) => {
   const history = useHistory()
 
   const [email, setEmail] = useState('')
@@ -15,7 +14,7 @@ const Login = ({ user, setUser }) => {
     try {
       const user = await sendLogin({ email, password })
       setToken(user.token)
-      setUser(user)
+      login(user)
       history.push('/notes')
 
       window.localStorage.setItem('user', JSON.stringify(user))

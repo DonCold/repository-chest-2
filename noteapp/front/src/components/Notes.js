@@ -1,10 +1,10 @@
 import FetchNotes from './Fetch'
 
-const Notes = ({ notes, setNotes }) => {
+const Notes = ({ notes, loading }) => {
   return (
     <>
       <h1>Notas</h1>
-      <FetchNotes notes={notes} setNotes={setNotes}/>
+      <FetchNotes notes={notes} loading={loading} />
     </>
   )
 }
