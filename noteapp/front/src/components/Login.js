@@ -1,18 +1,19 @@
-import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { sendLogin, setToken } from '../services/login'
-import { useHistory } from 'react-router-dom'
+
+import { useField } from '../hook/useField'
 
 const Login = ({ user, login }) => {
   const history = useHistory()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const email = useField('text')
+  const password = useField('password')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const user = await sendLogin({ email, password })
+      const user = await sendLogin({ email: email.form.value, password: password.form.value })
       setToken(user.token)
       login(user)
       history.push('/notes')
@@ -28,8 +29,8 @@ const Login = ({ user, login }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña"/>
+        <input {...email.form} placeholder="Email" />
+        <input {...password.form} placeholder="Contraseña"/>
         <button id="form-login-button" type="submit">Login</button>
       </form>
     </>

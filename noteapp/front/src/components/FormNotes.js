@@ -1,28 +1,21 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Togglable from './Togglable'
+import { useField } from './../hook/useField'
 
 const FormNotes = ({ sendNote }) => {
-  const [newTitle, setNewTitle] = useState('')
-  const [newNote, setNewNote] = useState('')
+  const title = useField('text')
+  const note = useField('text')
 
   const togglableRef = useRef()
 
-  const handleChangeNote = (e) => {
-    setNewNote(e.target.value)
-  }
-
-  const handleChangeTitle = (e) => {
-    setNewTitle(e.target.value)
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    sendNote({ title: newTitle, content: newNote })
-    setNewNote('')
-    setNewTitle('')
+    sendNote({ title: title.form.value, content: note.form.value })
     togglableRef.current.toggleVisibility()
+    title.reset()
+    note.reset()
   }
 
   return (
@@ -30,8 +23,8 @@ const FormNotes = ({ sendNote }) => {
       <Togglable ref={ togglableRef } showLabel="Nueva Nota" hiddenLabel="Cancelar">
         <h3>Formulario</h3>
         <form onSubmit={handleSubmit}>
-          <input type="text" value={newTitle} onChange={handleChangeTitle} placeholder="Titulo" />
-          <input type="text" value={newNote} onChange={handleChangeNote} placeholder="Descripcion" />
+          <input {...title.form} placeholder="Titulo" />
+          <input {...note.form} placeholder="Descripcion" />
           <button type="submit">Crear Nota</button>
         </form>
       </Togglable>
