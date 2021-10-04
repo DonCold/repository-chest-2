@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation } from 'wouter';
 
-import ListGif from '../../components/ListGif/index';
+import ListGif from '@/components/ListGif/index';
+import TrendingSearches from '@/components/TrendingSearches/index';
 
-import { useGifs } from '../../hooks/useGifs';
+import { useGifs } from '@/hooks/useGifs';
 
 import './Home.css';
 
@@ -30,6 +31,7 @@ const Home = () => {
       </form>
       <br />
       <ListGif gifs={gifs} />
+      <TrendingSearches />
     </div>
   )
 }

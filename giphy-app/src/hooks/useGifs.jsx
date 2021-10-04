@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { getGifs } from '../services/getGifs';
+import { getGifs } from '@/services/getGifs';
 
-import GifsContext from '../context/GifsContext';
+import GifsContext from '@/context/GifsContext';
 
 export const useGifs = ( { query, limit } ) => {
   const [loading, setLoading] = useState(false);
