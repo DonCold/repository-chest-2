@@ -6,9 +6,11 @@ import './gif.css';
 
 const Gif = ({ id, title, url }) => {
   return (
-    <Link to={`/gif/${ id }`} className='gif'>
+    <div className='Gif'>
+      <Link to={`/gif/${ id }`} className='Gif-link'>
         <img loading='lazy' src={ url } alt={ title } />
-    </Link>
+      </Link>
+    </div>
   )
 }
 

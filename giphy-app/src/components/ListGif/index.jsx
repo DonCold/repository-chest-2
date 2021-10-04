@@ -2,9 +2,13 @@ import React from 'react';
 
 import Gif from '../Gif';
 
+import './ListGif.css';
+
 const ListGif = ({ gifs }) => {
+  if (gifs.length === 0) return null;
+
   return (
-    <div>
+    <div className='ListOfGifs'>
     {
       gifs?.map(gif =>
         <Gif

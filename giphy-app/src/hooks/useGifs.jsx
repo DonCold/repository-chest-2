@@ -20,7 +20,7 @@ export const useGifs = ( { query, limit } ) => {
 
       setGifs(gifs);
       setLoading(false);
-      localStorage.setItem('lastQuery', queryFind);
+      if (queryFind) localStorage.setItem('lastQuery', queryFind);
     }
 
     data();

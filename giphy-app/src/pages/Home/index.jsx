@@ -5,11 +5,13 @@ import ListGif from '../../components/ListGif/index';
 
 import { useGifs } from '../../hooks/useGifs';
 
+import './Home.css';
+
 const Home = () => {
   const [query, setQuery] = useState('');
   const [_path, pushLocation] = useLocation();
 
-  const { gifs } = useGifs({ limit: 2 });
+  const { gifs } = useGifs({ limit: 10 });
 
   const handleQuery = (e) => {
     setQuery(e.target.value);
@@ -17,15 +19,16 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    pushLocation(`/search/${query}`);
+    if (query !== '') pushLocation(`/search/${query}`);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={query} onChange={handleQuery} />
-        <button type="submit">Buscar</button>
+        <input className="input" placeholder="Search" type="text" value={query} onChange={handleQuery} />
+        <button className="button" type="submit">Buscar</button>
       </form>
+      <br />
       <ListGif gifs={gifs} />
     </div>
   )

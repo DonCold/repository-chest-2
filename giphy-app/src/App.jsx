@@ -13,8 +13,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <section className="App-header">
-        <Link to="/"><h1>Giphy App</h1></Link>
+      <section className="App-content">
+        <Link to="/"><h1 className="App-title">Giphy App</h1></Link>
         <GifsContextProvider>
           <Route exact path="/" component={Home} />
           <Route path="/search/:query" component={SearchResults} />

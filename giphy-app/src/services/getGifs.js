@@ -1,6 +1,6 @@
 const apiKey = import.meta.env.VITE_GIPHY_KEY;
 
-export const getGifs = async ({ query = 'Luna', limit = 10 } = {}) => {
+export const getGifs = async ({ query = 'Luna', limit = 20 } = {}) => {
   if (query === '' || !query) return [];
 
   const apiURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${limit}&offset=0&rating=g&lang=en`

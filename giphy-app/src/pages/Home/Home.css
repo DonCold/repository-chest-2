@@ -1,0 +1,49 @@
+.input {
+	font-size: 1em;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 500;
+	background: linear-gradient(21deg, #878888, #e8ebea);
+	border: #8d979d;
+	color: #fff;
+	padding: 5px;
+	padding-bottom: 6px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 9em 0 0 9em;
+	width: 25vw;
+	height: auto;
+}
+
+.input::placeholder {
+	color: rgba(208, 199, 199, 0.727);
+}
+
+.input:focus {
+	outline: none;
+	box-shadow: 2px 2px 2px 1px rgba(255, 255, 255, 0.2);
+}
+
+.button {
+	font-size: 1em;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 600;
+	background: linear-gradient(21deg, #878888, #e8ebea);
+	border: #8d979d;
+	color: #fff;
+	padding: 5px;
+	padding-bottom: 6px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 0 9em 9em 0;
+	height: auto;
+}
+
+.button:hover {
+	background: linear-gradient(21deg, #e8ebea, #878888);
+	cursor: pointer;
+}
+
+.button:active {
+	outline: none;
+	box-shadow: 2px 2px 2px 1px rgba(255, 255, 255, 0.2);
+}
