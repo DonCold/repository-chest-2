@@ -1,17 +1,25 @@
 import React from 'react';
 import { Link, Route } from 'wouter';
 
-import ListGif from './components/ListGif';
+import { GifsContextProvider } from './context/GifsContext';
+
+import Home from './pages/Home/index';
+import SearchResults from './pages/SearchResults/index';
+
+import Details from './components/Details';
 
 import './App.css';
 
 function App() {
-
   return (
     <div className="App">
-      <section className="App-content">
+      <section className="App-header">
         <Link to="/"><h1>Giphy App</h1></Link>
-        <Route path="/gifs/:query" component={ListGif} />
+        <GifsContextProvider>
+          <Route exact path="/" component={Home} />
+          <Route path="/search/:query" component={SearchResults} />
+          <Route path="/gif/:id" component={Details} />
+        </GifsContextProvider>
       </section>
     </div>
   )
