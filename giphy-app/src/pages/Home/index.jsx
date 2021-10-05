@@ -12,7 +12,7 @@ const Home = () => {
   const [query, setQuery] = useState('');
   const [_path, pushLocation] = useLocation();
 
-  const { gifs } = useGifs({ limit: 10 });
+  const { gifs } = useGifs({ limit: 20 });
 
   const handleQuery = (e) => {
     setQuery(e.target.value);

@@ -1,40 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'wouter';
+import React, { Suspense } from 'react';
 
-import { getTrendingTerms } from '@/services/getTrendingTerms';
+import useNearScreen from '@/hooks/useNearScreen';
 
-import { capitalize } from '@/libs/util';
+const TrendingSearches = React.lazy(() => import('./TrendingSearches'));
 
-import './trending.css';
-
-const TrendingSearches = () => {
-  const [trends, setTrends] = useState([]);
-
-  useEffect(() => {
-    async function fetchTrends() {
-      const data = await getTrendingTerms();
-      setTrends(data);
-    }
-
-    fetchTrends();
-  })
+const LazyTrendingSearches = () => {
+  const { isNearScreen, fromRef } = useNearScreen();
 
   return (
-    <>
-    <h3>Trending</h3>
-    <ul className="Trending">
-      {
-        trends.map((trend) => (
-          <li key={trend}>
-            <Link to={`/search/${trend}`} className="link">
-              { capitalize(trend) }
-            </Link>
-          </li>
-        ))
-      }
-    </ul>
-    </>
-  );
+    <div ref={ fromRef } >
+      <Suspense fallback={'Cargando..'}>
+        { isNearScreen && <TrendingSearches /> }
+      </Suspense>
+    </div>
+  )
 }
 
-export default TrendingSearches;
+export default LazyTrendingSearches;

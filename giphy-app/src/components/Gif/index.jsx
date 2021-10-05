@@ -8,7 +8,7 @@ const Gif = ({ id, title, url }) => {
   return (
     <div className='Gif'>
       <Link to={`/gif/${ id }`} className='Gif-link'>
-        <img loading='lazy' src={ url } alt={ title } />
+        <img src={ url } alt={ title } />
       </Link>
     </div>
   )

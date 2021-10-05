@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "intersection-observer": "^0.12.0",
     "react": "17.0.0",
     "react-dom": "17.0.0",
     "wouter": "^2.8.0-alpha.1"

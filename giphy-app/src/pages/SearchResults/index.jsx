@@ -8,7 +8,11 @@ import { capitalize } from '@/libs/util';
 
 const SearchResults = ({ params }) => {
   const { query } = params;
-  const { loading, gifs } = useGifs({ query });
+  const { loading, loadingNextPage, gifs, setPage } = useGifs({ query, limit: 50 });
+
+  const handleNextPage = () => {
+    setPage(page => page + 1);
+  }
 
   if (loading) return <p>Loading...</p>;
   if (gifs.length === 0 || !gifs) return <p>No gifs found</p>;
@@ -17,6 +21,9 @@ const SearchResults = ({ params }) => {
     <>
       <h2>{ capitalize(decodeURI( query )) }</h2>
       <ListGif gifs={gifs} />
+      { loadingNextPage && <p>Loading...</p> }
+      <br />
+      <button onClick={handleNextPage} >Get Next Page</button>
     </>
   )
 }
