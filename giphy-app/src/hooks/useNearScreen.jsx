@@ -1,19 +1,23 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import debounce from 'just-debounce-it';
 
-const useNearScreen = ({ distance = '100px' } = {}) => {
+const useNearScreen = ({ distance = '100px', externalRef, once = true } = {}) => {
   const fromRef = useRef();
   const [isNearScreen, setIsNearScreen] = useState(false);
 
+  const debounceSetIsNearScreen = useCallback(debounce(() => setIsNearScreen(true), 500), []);
+
+  const onChange = (entries, observer) => {
+    const el = entries[0];
+    if (el.isIntersecting) {
+      debounceSetIsNearScreen();
+      once ? observer.disconnect() : setIsNearScreen(false);
+    }
+  };
+
   useEffect(() => {
     let observer;
-
-    const onChange = (entries, observer) => {
-      const el = entries[0];
-      if (el.isIntersecting) {
-        setIsNearScreen(true);
-        observer.disconnect();
-      }
-    };
+    const element = externalRef ? externalRef.current : fromRef.current
 
     Promise.resolve(
       IntersectionObserver || import('intersection-observer')
@@ -22,7 +26,7 @@ const useNearScreen = ({ distance = '100px' } = {}) => {
         rootMargin: distance,
       });
 
-      observer.observe( fromRef.current );
+      if ( element ) observer.observe( element );
     })
 
     return () => observer && observer.disconnect();
