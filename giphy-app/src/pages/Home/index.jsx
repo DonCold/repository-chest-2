@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useLocation } from 'wouter';
+import { Helmet } from 'react-helmet';
 
 import ListGif from '@/components/ListGif';
 import TrendingSearches from '@/components/TrendingSearches';
@@ -19,6 +20,9 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Giphy App</title>
+      </Helmet>
       <FormGif handleSearchQuery={searchQuery} />
       <br />
       <ListGif gifs={gifs} />

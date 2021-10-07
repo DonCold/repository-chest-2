@@ -1,19 +1,19 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { useSingleGif } from '@/hooks/useSingleGif';
-import useSEO from '@/hooks/useSEO';
 
 const Details = ({ params }) => {
   const { id } = params;
   const { gif } = useSingleGif({ id });
 
-  const title = gif ? (gif.title || 'Gif Details') : 'Details';
-  useSEO({ title });
-
   return (
     <div>
       {
         gif && <div>
+          <Helmet>
+            <title>{gif.title}</title>
+          </Helmet>
           <strong>{gif.title}</strong><br />
           <img src={gif.url} alt={gif.title} />
         </div>

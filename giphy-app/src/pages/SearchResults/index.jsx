@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import { Helmet } from 'react-helmet';
 import debounce from 'just-debounce-it';
 
 import ListGif from '@/components/ListGif';
@@ -7,7 +8,6 @@ import { useGifs } from '@/hooks/useGifs';
 
 import { capitalize } from '@/libs/util';
 import useNearScreen from '@/hooks/useNearScreen';
-import useSEO from '@/hooks/useSEO';
 
 const SearchResults = ({ params }) => {
   const { query } = params;
@@ -18,9 +18,6 @@ const SearchResults = ({ params }) => {
     externalRef: loading ? null : externalRef,
     once: false
   });
-
-  const title = gifs ? `${gifs.length} ${capitalize(decodeURI(query))} Gifs` : `${capitalize(query)} Gifs`;
-  useSEO({ title });
 
   const handleNextPage = () => {
     setPage(page => page + 1);
@@ -36,6 +33,9 @@ const SearchResults = ({ params }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{`${capitalize(decodeURI(query))} | Gifs`}</title>
+      </Helmet>
       <h2>{ capitalize(decodeURI( query )) }</h2>
       {
         loading
