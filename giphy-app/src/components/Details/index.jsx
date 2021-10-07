@@ -1,17 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import GifsContext from '@/context/GifsContext';
+import { useSingleGif } from '@/hooks/useSingleGif';
+import useSEO from '@/hooks/useSEO';
 
 const Details = ({ params }) => {
-  const gifsContext = useContext(GifsContext);
-  const { gifs } = gifsContext;
+  const { id } = params;
+  const { gif } = useSingleGif({ id });
 
-  const gif = gifs.find(gif => gif.id === params.id);
+  const title = gif ? (gif.title || 'Gif Details') : 'Details';
+  useSEO({ title });
 
   return (
     <div>
-      <strong>{gif.title}</strong><br />
-      <img src={gif.url} alt={gif.title} />
+      {
+        gif && <div>
+          <strong>{gif.title}</strong><br />
+          <img src={gif.url} alt={gif.title} />
+        </div>
+      }
     </div>
   )
 }

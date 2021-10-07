@@ -7,6 +7,7 @@ import { useGifs } from '@/hooks/useGifs';
 
 import { capitalize } from '@/libs/util';
 import useNearScreen from '@/hooks/useNearScreen';
+import useSEO from '@/hooks/useSEO';
 
 const SearchResults = ({ params }) => {
   const { query } = params;
@@ -17,6 +18,9 @@ const SearchResults = ({ params }) => {
     externalRef: loading ? null : externalRef,
     once: false
   });
+
+  const title = gifs ? `${gifs.length} ${capitalize(decodeURI(query))} Gifs` : `${capitalize(query)} Gifs`;
+  useSEO({ title });
 
   const handleNextPage = () => {
     setPage(page => page + 1);
