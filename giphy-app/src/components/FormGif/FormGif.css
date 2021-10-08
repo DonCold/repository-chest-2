@@ -9,7 +9,6 @@
 	padding-bottom: 6px;
 	padding-left: 15px;
 	padding-right: 15px;
-	border-radius: 9em 0 0 9em;
 	width: 25vw;
 	height: auto;
 }
@@ -46,4 +45,23 @@
 .button:active {
 	outline: none;
 	box-shadow: 2px 2px 2px 1px rgba(255, 255, 255, 0.2);
+}
+
+.select {
+	font-size: 0.93em;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(21deg, #878888, #e8ebea);
+	border: #8d979d;
+	color: rgb(56, 56, 56);
+	padding: 5px;
+	padding-bottom: 6px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-radius: 9em 0 0 9em;
+	width: 5em;
+}
+
+.select:hover {
+	background: linear-gradient(21deg, #e8ebea, #878888);
+	cursor: pointer;
 }

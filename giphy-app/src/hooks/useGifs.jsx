@@ -5,7 +5,7 @@ import { getGifs } from '@/services/getGifs';
 import GifsContext from '@/context/GifsContext';
 
 const INITAL_PAGE = 0;
-export const useGifs = ( { query, limit } = {}) => {
+export const useGifs = ( { query, limit, rating } = {}) => {
   const [loading, setLoading] = useState(false);
   const [loadingNextPage, setLoadingNextPage] = useState(false);
   const [page, setPage] = useState(INITAL_PAGE);
@@ -20,6 +20,7 @@ export const useGifs = ( { query, limit } = {}) => {
       const gifs = await getGifs({
         query: queryFind,
         limit,
+        rating
       })
 
       setGifs(gifs);

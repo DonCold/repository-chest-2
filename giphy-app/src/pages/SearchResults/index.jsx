@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import debounce from 'just-debounce-it';
 
 import ListGif from '@/components/ListGif';
+import FormGif from '@/components/FormGif';
 
 import { useGifs } from '@/hooks/useGifs';
 
@@ -10,8 +11,8 @@ import { capitalize } from '@/libs/util';
 import useNearScreen from '@/hooks/useNearScreen';
 
 const SearchResults = ({ params }) => {
-  const { query } = params;
-  const { loading, loadingNextPage, gifs, setPage } = useGifs({ query, limit: 20 });
+  const { query, rating } = params;
+  const { loading, loadingNextPage, gifs, setPage } = useGifs({ query, limit: 20, rating });
 
   const externalRef = useRef();
   const { isNearScreen } = useNearScreen({
@@ -36,6 +37,7 @@ const SearchResults = ({ params }) => {
       <Helmet>
         <title>{`${capitalize(decodeURI(query))} | Gifs`}</title>
       </Helmet>
+      <FormGif initialQuery={query} initialRating={rating} />
       <h2>{ capitalize(decodeURI( query )) }</h2>
       {
         loading
