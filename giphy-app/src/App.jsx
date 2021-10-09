@@ -14,7 +14,9 @@ function App() {
   return (
     <div className="App">
       <section className="App-content">
-        <Link to="/"><h1 className="App-title">Giphy App</h1></Link>
+        <Link to="/">
+          <h1 className="App-title">Giphy App</h1>
+        </Link>
         <GifsContextProvider>
           <Route exact path="/" component={Home} />
           <Route path="/search/:query/:rating?" component={SearchResults} />

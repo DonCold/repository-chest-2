@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useReducer } from 'react';
 import { useLocation } from 'wouter';
 
-import './FormGif.css'
+import './FormGif.css';
 
 const RATING = [
   'g',
@@ -10,22 +10,56 @@ const RATING = [
   'r'
 ]
 
+const ACTIONS = {
+  QUERY: 'query',
+  RATING: 'rating'
+}
+
+const reducer = (state, param) => {
+  switch (param.type) {
+    case ACTIONS.QUERY:
+      return {
+        ...state,
+        query: param.payload,
+        times: state.times + 1
+      };
+    case ACTIONS.RATING:
+      return {
+        ...state,
+        rating: param.payload
+      };
+    default:
+      return state;
+  }
+}
+
 const FormGif = ({ initialQuery = '', initialRating = '' } = {}) => {
   const [_path, pushLocation] = useLocation();
-  const [query, setQuery] = useState(decodeURI(initialQuery));
-  const [rating, setRating] = useState(initialRating);
+  const [state, dispatch] = useReducer(reducer, {
+    query: decodeURI(initialQuery),
+    rating: initialRating,
+    times: 0
+  });
 
-  const handleQuery = (e) => {
-    setQuery(e.target.value);
-  }
-
-  const handleRating = (e) => {
-    setRating(e.target.value);
-  }
+  const { query, rating } = state;
 
   const searchQuery = useCallback((query) => {
     if (query !== '') pushLocation(`/search/${query}/${rating}`);
   }, [pushLocation, query]);
+
+  const handleQuery = (e) => {
+    dispatch({
+      type: ACTIONS.QUERY,
+      payload: e.target.value
+    });
+  }
+
+  const handleRating = (e) => {
+    dispatch({
+      type: ACTIONS.RATING,
+      payload: e.target.value
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
