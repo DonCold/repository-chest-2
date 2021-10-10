@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Route } from 'wouter';
 
+import { UsersContextProvider } from './context/UsersContext';
 import { GifsContextProvider } from '@/context/GifsContext';
 
 import Home from '@/pages/Home/index';
@@ -14,22 +15,24 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <section className="App-content">
-        <Header/>
-        <Link to="/">
-          <h1 className="App-title">
-            Giphy App
-          </h1>
-        </Link>
-        <GifsContextProvider>
-          <Route exact path="/" component={Home} />
-          <Route path="/search/:query/:rating?" component={SearchResults} />
-          <Route path="/gif/:id" component={Details} />
-          <Route path="/login" component={Login} />
-        </GifsContextProvider>
-      </section>
-    </div>
+    <UsersContextProvider>
+      <div className="App">
+        <section className="App-content">
+          <Header/>
+          <Link to="/">
+            <h1 className="App-title">
+              Giphy App
+            </h1>
+          </Link>
+          <GifsContextProvider>
+            <Route exact path="/" component={Home} />
+            <Route path="/search/:query/:rating?" component={SearchResults} />
+            <Route path="/gif/:id" component={Details} />
+            <Route path="/login" component={Login} />
+          </GifsContextProvider>
+        </section>
+      </div>
+    </UsersContextProvider>
   )
 }
 

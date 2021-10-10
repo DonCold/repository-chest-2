@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 
-function Login() {
+import useUser from '@/hooks/useUser';
+
+function Login({ onLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [, setLocation] = useLocation()
+  const { login, isLogged } = useUser()
+
+  useEffect(() => {
+    if (isLogged) {
+      onLogin && onLogin()
+      setLocation('/')
+    }
+  }, [isLogged]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value)
@@ -15,16 +25,19 @@ function Login() {
   }
 
   const onSubmit = (event) => {
-    event.preventDefault()
-    setLocation('/')
+    event.preventDefault();
+    login(username, password);
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" placeholder="username"  value={username} onChange={handleUsernameChange} />
-      <input type="password" placeholder="password" value={password} onChange={handlePasswordChange} />
-      <button>Login</button>
-    </form>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={onSubmit}>
+        <input type="text" placeholder="username"  value={username} onChange={handleUsernameChange} /><br />
+        <input type="password" placeholder="password" value={password} onChange={handlePasswordChange} /><br />
+        <button>Login</button>
+      </form>
+    </div>
   )
 }
 
