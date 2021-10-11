@@ -1,13 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'wouter'
 
 import useUser from '@/hooks/useUser';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 function Login({ onLogin }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [, setLocation] = useLocation()
   const { login, isLogged } = useUser()
+
+  const validateForm = values => {
+    const errors = {};
+
+    if (!values.username) {
+      errors.username = 'Required';
+    } else if (values.username.length > 15) {
+      errors.username = 'Must be 15 characters or less';
+    }
+    if (!values.password) {
+      errors.password = 'Required';
+    } else if (values.password.length > 15) {
+      errors.password = 'Must be 15 characters or less';
+    }
+    return errors;
+  }
+
+  const handleSubmit = (values) => {
+    login(values.username, values.password);
+  }
 
   useEffect(() => {
     if (isLogged) {
@@ -16,27 +35,26 @@ function Login({ onLogin }) {
     }
   }, [isLogged]);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    login(username, password);
-  }
-
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="username"  value={username} onChange={handleUsernameChange} /><br />
-        <input type="password" placeholder="password" value={password} onChange={handlePasswordChange} /><br />
-        <button>Login</button>
-      </form>
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        validate={validateForm}
+        onSubmit={handleSubmit}
+      >
+        {
+          () => (
+            <Form>
+              <Field type="text" placeholder="username" name="username"/><br />
+              <ErrorMessage name="username" component="small" /><br />
+              <Field type="password" placeholder="password" name="password"/><br />
+              <ErrorMessage name="password" component="small" /><br />
+              <button>Login</button>
+            </Form>
+          )
+        }
+      </Formik>
     </div>
   )
 }
