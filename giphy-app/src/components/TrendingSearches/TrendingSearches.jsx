@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'wouter';
 
 import { getTrendingTerms } from '@/services/getTrendingTerms';
 import { capitalize } from '@/libs/util';
 
-import './trending.css';
+import { CategoryItem, CategoryList, CategoryLink, TitleH3} from './styles';
 
 const TrendingSearches = () => {
   const [trends, setTrends] = useState([]);
@@ -20,18 +19,18 @@ const TrendingSearches = () => {
 
   return (
     <>
-      <h3>Trending</h3>
-      <ul className="Trending">
+      <TitleH3>Trending</TitleH3>
+      <CategoryList>
         {
           trends.map((trend) => (
-            <li key={trend}>
-              <Link to={`/search/${trend}`} className="link">
+            <CategoryItem key={trend}>
+              <CategoryLink to={`/search/${trend}`} className="link">
                 { capitalize(trend) }
-              </Link>
-            </li>
+              </CategoryLink>
+            </CategoryItem>
           ))
         }
-      </ul>
+      </CategoryList>
     </>
   );
 }

@@ -2,6 +2,7 @@ import React, { useCallback, useReducer } from 'react';
 import { useLocation } from 'wouter';
 
 import './FormGif.css';
+import Input from './../Input/index';
 
 const RATING = [
   'g',
@@ -76,7 +77,7 @@ const FormGif = ({ initialQuery = '', initialRating = '' } = {}) => {
           ))
         }
       </select>
-      <input className="input" placeholder="Search" type="text" value={query} onChange={handleQuery} />
+      <Input placeholder="Search" type="text" value={query} onChange={handleQuery} />
       <button className="button" type="submit">Buscar</button>
     </form>
   )

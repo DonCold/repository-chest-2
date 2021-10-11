@@ -2,7 +2,10 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'wouter'
 
 import useUser from '@/hooks/useUser';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
+import Button from './../Button/index';
+
+import { StyledField } from './styles';
 
 function Login({ onLogin }) {
   const [, setLocation] = useLocation()
@@ -46,11 +49,11 @@ function Login({ onLogin }) {
         {
           () => (
             <Form>
-              <Field type="text" placeholder="username" name="username"/><br />
+              <StyledField type="text" placeholder="username" name="username"/><br />
               <ErrorMessage name="username" component="small" /><br />
-              <Field type="password" placeholder="password" name="password"/><br />
+              <StyledField type="password" placeholder="password" name="password"/><br />
               <ErrorMessage name="password" component="small" /><br />
-              <button>Login</button>
+              <Button>Login</Button>
             </Form>
           )
         }

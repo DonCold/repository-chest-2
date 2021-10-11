@@ -10,9 +10,10 @@
 }
 
 .modal-content {
-  width: 300px;
-  padding-bottom: 20px;
+  width: 60vw;
   height: auto;
+
+  padding-bottom: 20px;
   background-color: #3d3d3d;
   margin: 10vh auto;
   margin-bottom: 20px;

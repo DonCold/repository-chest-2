@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import { Link, useRoute } from 'wouter';
+import { useRoute } from 'wouter';
 
 import useUser from '@/hooks/useUser';
 
 import Login from '@/components/Login';
-import { ModalPortal } from './../Modal';
+import { ModalPortal } from '../Modal';
 
 import './Header.css';
+import Button from '../Button';
 
 const Header = () => {
   const { isLogged, logout } = useUser();
@@ -29,16 +30,16 @@ const Header = () => {
       {
         !isLogged ? (
           <div>
-            <Link to='/login' className="link-theme">
+            <Button to='/login'>
               Login
-            </Link>
+            </Button>
             {
-              !showModal && <button className="button-theme" onClick={() => { setShowModal(true) }}>Login - Modal</button>
+              !showModal && <Button onClick={() => { setShowModal(true) }}>Login - Modal</Button>
             }
             { showModal && <ModalPortal onClose={handleClose}><Login onLogin={handleLogin} /></ModalPortal> }
           </div>
         ) : (
-          <button className="button-theme" onClick={logout}>Logout</button>
+          <Button onClick={logout}>Logout</Button>
         )
       }
     </div>

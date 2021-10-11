@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link, Route } from 'wouter';
+import { Link, Route, Switch } from 'wouter';
 
 import { UsersContextProvider } from './context/UsersContext';
 import { GifsContextProvider } from '@/context/GifsContext';
 
-import Home from '@/pages/Home/index';
-import SearchResults from '@/pages/SearchResults/index';
+import Home from '@/pages/Home';
+import SearchResults from '@/pages/SearchResults';
 
 import Details from '@/components/Details';
-import Header from '@/components/Header/index';
-import Login from '@/components/Login/index';
+import Header from '@/components/Header';
+import Login from '@/components/Login';
+import PageNotFound from '@/components/PageNotFound';
 
 import './App.css';
 
@@ -25,10 +26,13 @@ function App() {
             </h1>
           </Link>
           <GifsContextProvider>
-            <Route exact path="/" component={Home} />
-            <Route path="/search/:query/:rating?" component={SearchResults} />
-            <Route path="/gif/:id" component={Details} />
-            <Route path="/login" component={Login} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/search/:query/:rating?" component={SearchResults} />
+              <Route path="/gif/:id" component={Details} />
+              <Route path="/login" component={Login} />
+              <Route path="/:404" component={PageNotFound} />
+            </Switch>
           </GifsContextProvider>
         </section>
       </div>
