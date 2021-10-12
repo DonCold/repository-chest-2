@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import styles, { globalStyles } from './styles'
+
 const AppLayout = ({ children }) => {
   return (
     <>
@@ -9,9 +11,14 @@ const AppLayout = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        { children }
-      </main>
+      <div>
+        <main>
+          { children }
+        </main>
+      </div>
+
+      <style jsx>{ styles }</style>
+      <style jsx global>{ globalStyles }</style>
     </>
   )
 }
