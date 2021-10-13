@@ -1,17 +1,19 @@
-import { colors } from './../../styles/theme';
+import { colors } from "../../styles/theme";
 
-const Button = ({ children, onClick, ...props }) => {
-  return (
-    <>
-      <button onClick={onClick} {...props}>{children}</button>
+const Button = ({ children, onClick, ...props }) => (
+  <>
+    <button type="button" onClick={onClick} {...props}>
+      {children}
+    </button>
 
-      <style jsx>{`
+    <style jsx>
+      {`
         button {
           display: flex;
           align-items: center;
-          background: ${ colors.black };
+          background: ${colors.black};
           border: 0;
-          color: ${ colors.white };
+          color: ${colors.white};
           border-radius: 9999px;
           font-weight: 800;
           padding: 8px 24px;
@@ -26,9 +28,9 @@ const Button = ({ children, onClick, ...props }) => {
         button:hover {
           opacity: .7;
         }
-      `}</style>
-    </>
-  )
-}
+      `}
+    </style>
+  </>
+);
 
 export default Button;

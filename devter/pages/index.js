@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
-import { loginWithGithub, onAuthStateChanged } from '../firebase/client';
+import { loginWithGithub, onAuthStateChanged } from "../firebase/client";
 
-import AppLayout from './../components/AppLayout';
-import Button from './../components/Button/index';
-import GitHub from './../components/Icons/GitHub';
+import AppLayout from "../components/AppLayout";
+import Button from "../components/Button/index";
+import GitHub from "../components/Icons/GitHub";
 
-import { colors } from '../styles/theme';
+import { colors } from "../styles/theme";
 
 export default function Home() {
   const [user, setUser] = useState(undefined);
@@ -19,55 +20,59 @@ export default function Home() {
     try {
       await loginWithGithub();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
       <AppLayout>
         <section>
-         <h1>Devter</h1>
-         <div>
-          {
-            user === null && (
+          <h1>Devter</h1>
+          <div>
+            {user === null && (
               <Button onClick={handleClick}>
                 <GitHub width={24} height={24} fill="#fff" />
                 Login with Github
               </Button>
-            )
-          }
-          {
-            user && user.photo && (
+            )}
+            {user && user.photo && (
               <div>
-                <img src={user.photo} alt={user.username} />
+                <Image
+                  src={user.photo}
+                  width={300}
+                  height={300}
+                  alt={user.username}
+                />
                 <strong>{user.username}</strong>
               </div>
-            )
-          }
-         </div>
+            )}
+          </div>
         </section>
       </AppLayout>
 
-      <style jsx>{`
-        section {
-          display: grid;
-          height: 100%;
-          place-items: center;
-          place-content: center;
-        }
+      <style jsx>
+        {`
+          section {
+            display: grid;
+            height: 100%;
+            place-items: center;
+            place-content: center;
+          }
 
-        div {
-          margin-top: 20px;
-        }
+          div {
+            margin-top: 20px;
+          }
 
-        h1 {
-          color: ${ colors.secondary };
-          font-size: 2.5rem;
-          font-weight: 800;
-          text-align: center;
-        }
-      `}</style>
+          h1 {
+            color: ${colors.secondary};
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+          }
+        `}
+      </style>
     </>
-  )
+  );
 }

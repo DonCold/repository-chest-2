@@ -1,7 +1,8 @@
-import css from 'styled-jsx/css';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import css from "styled-jsx/css";
 
-import { fonts, colors, breakpoints } from '../../styles/theme';
-import { addOpacity } from '../../styles/util';
+import { fonts, colors, breakpoints } from "../../styles/theme";
+import { addOpacity } from "../../styles/util";
 
 const backgroundColor = addOpacity(colors.primary, 0.3);
 
@@ -20,25 +21,27 @@ export default css`
     height: 100%;
   }
 
-  @media (min-width: ${ breakpoints.mobile }) {
+  @media (min-width: ${breakpoints.mobile}) {
     main {
-      width: ${ breakpoints.mobile };
+      width: ${breakpoints.mobile};
       height: 90vh;
     }
   }
-`
+`;
 
 export const globalStyles = css.global`
   html,
   body {
-    background-image:
-      radial-gradient(${ backgroundColor } 1px, ${ colors.grey } 1px),
-      radial-gradient(${ backgroundColor } 1px, ${ colors.grey } 1px);
+    background-image: radial-gradient(
+        ${backgroundColor} 1px,
+        ${colors.grey} 1px
+      ),
+      radial-gradient(${backgroundColor} 1px, ${colors.grey} 1px);
     background-position: 0 0, 25px 25px;
     background-size: 50px 50px;
     padding: 0;
     margin: 0;
-    font-family: ${ fonts.base };
+    font-family: ${fonts.base};
   }
 
   a {
@@ -49,4 +52,4 @@ export const globalStyles = css.global`
   * {
     box-sizing: border-box;
   }
-`
+`;

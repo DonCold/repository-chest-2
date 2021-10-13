@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app"
-import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth"
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCtAUH_XRFLvUGVwYgdoDm-jb8aXXgcXzE",
@@ -8,7 +8,7 @@ const firebaseConfig = {
   storageBucket: "devter-3026f.appspot.com",
   messagingSenderId: "826572540564",
   appId: "1:826572540564:web:6ed81190c23302f16b0281",
-  measurementId: "G-X4BJHGW5DV"
+  measurementId: "G-X4BJHGW5DV",
 };
 
 initializeApp(firebaseConfig);
@@ -22,17 +22,16 @@ const mapUserFromFirebaseAuth = (user) => {
     email: user.email,
     photo: user.photoURL,
   };
-}
+};
 
-export const onAuthStateChanged = (onChange) => {
-  return getAuth().onAuthStateChanged(user => {
+export const onAuthStateChanged = (onChange) =>
+  getAuth().onAuthStateChanged((user) => {
     const normalizeUser = mapUserFromFirebaseAuth(user);
     onChange(normalizeUser);
   });
-}
 
 export const loginWithGithub = async () => {
   const auth = getAuth();
   const githubProvider = new GithubAuthProvider();
   await signInWithPopup(auth, githubProvider);
-}
+};
