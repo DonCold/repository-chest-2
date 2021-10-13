@@ -1,8 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import css from "styled-jsx/css";
 
-import { fonts, colors, breakpoints } from "../../styles/theme";
-import { addOpacity } from "../../styles/util";
+import { fonts, colors, breakpoints } from "styles/theme";
+import { addOpacity } from "styles/util";
 
 const backgroundColor = addOpacity(colors.primary, 0.3);
 
@@ -19,6 +18,7 @@ export default css`
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
   @media (min-width: ${breakpoints.mobile}) {
