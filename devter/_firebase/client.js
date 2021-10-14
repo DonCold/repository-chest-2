@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import {
+  getFirestore,
+  Timestamp,
+  collection,
+  addDoc,
+  getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCtAUH_XRFLvUGVwYgdoDm-jb8aXXgcXzE",
@@ -12,6 +19,7 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
+const db = getFirestore();
 
 const mapUserFromFirebaseAuth = (user) => {
   if (!user) return null;
@@ -20,7 +28,7 @@ const mapUserFromFirebaseAuth = (user) => {
     id: user.uid,
     username: user.displayName,
     email: user.email,
-    photo: user.photoURL,
+    avatar: user.photoURL,
   };
 };
 
@@ -34,4 +42,35 @@ export const loginWithGithub = async () => {
   const auth = getAuth();
   const githubProvider = new GithubAuthProvider();
   await signInWithPopup(auth, githubProvider);
+};
+
+export const addDevit = async ({ avatar, message, userId, username }) => {
+  return await addDoc(collection(db, "devits"), {
+    avatar,
+    message,
+    userId,
+    username,
+    createdAt: Timestamp.fromDate(new Date()),
+    likeCount: 0,
+    sharedCount: 0,
+  });
+};
+
+export const getDevits = async () => {
+  let snapshots;
+  try {
+    snapshots = await getDocs(collection(db, "devits"));
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (!snapshots) return [];
+  const data = snapshots.docs.map((doc) => {
+    const data = doc.data();
+    data.id = doc.id;
+    return { ...data };
+  });
+
+  console.log(data);
+  return data;
 };

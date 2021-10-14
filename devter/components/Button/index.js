@@ -2,7 +2,7 @@ import { colors } from "styles/theme";
 
 const Button = ({ children, onClick, ...props }) => (
   <>
-    <button type="button" onClick={onClick} {...props}>
+    <button type={props?.type} onClick={onClick} {...props}>
       {children}
     </button>
 
@@ -19,6 +19,12 @@ const Button = ({ children, onClick, ...props }) => (
           padding: 8px 24px;
           cursor: pointer;
           transition opacity .3s ease;
+          user-select: none;
+        }
+
+        button[disabled] {
+          opacity: .5;
+          pointer-events: none;
         }
 
         button > :global(svg) {

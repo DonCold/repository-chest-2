@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
+
 import AppLayout from "components/AppLayout";
 import Devit from "components/Devit/index";
+import useUser from "hooks/useUser";
+import { getDevits } from "_firebase/client";
 
 const HomePage = () => {
   const [timelime, setTimelime] = useState([]);
+  const user = useUser();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/statuses/home_timeline")
-      .then((res) => res.json())
-      .then((data) => {
-        setTimelime(data);
-      });
-  }, []);
+    user && getDevits().then(setTimelime);
+  }, [user]);
 
   return (
     <>
