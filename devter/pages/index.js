@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { loginWithGithub, onAuthStateChanged } from "_firebase/client";
 
@@ -7,14 +9,18 @@ import Button from "components/Button";
 import GitHub from "components/Icons/GitHub";
 
 import { colors } from "styles/theme";
-import Avatar from "components/Avatar";
 
 export default function Home() {
   const [user, setUser] = useState(undefined);
+  const router = useRouter();
 
   useEffect(() => {
     onAuthStateChanged(setUser);
   }, []);
+
+  useEffect(() => {
+    user && router.replace("/home");
+  }, [user]);
 
   const handleClick = async () => {
     try {
@@ -37,11 +43,7 @@ export default function Home() {
                 Login with Github
               </Button>
             )}
-            {user && user.photo && (
-              <div>
-                <Avatar alt={user.username} src={user.photo} withText />
-              </div>
-            )}
+            {user === undefined && <Image src="/loading.svg" width="200" height="200" />}
           </div>
         </section>
       </AppLayout>
