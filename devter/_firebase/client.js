@@ -68,9 +68,24 @@ export const getDevits = async () => {
   const data = snapshots.docs.map((doc) => {
     const data = doc.data();
     data.id = doc.id;
-    return { ...data };
+    const { createdAt } = data;
+
+    const intl = new Intl.DateTimeFormat("es-ES", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const normalizeCreatedAt = intl
+      .format(new Date(createdAt.seconds * 1000))
+      .toString();
+
+    return {
+      ...data,
+      createdAt: normalizeCreatedAt,
+    };
   });
 
-  console.log(data);
   return data;
 };

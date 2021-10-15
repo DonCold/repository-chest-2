@@ -28,6 +28,7 @@ const HomePage = () => {
                 avatar={devit.avatar}
                 id={devit.id}
                 message={devit.message}
+                createdAt={devit.createdAt}
               />
             );
           })}

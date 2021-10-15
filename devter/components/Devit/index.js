@@ -1,6 +1,6 @@
 import Avatar from "components/Avatar";
 
-const Devit = ({ avatar, username, message, id }) => {
+const Devit = ({ avatar, username, message, id, createdAt }) => {
   return (
     <>
       <article>
@@ -8,7 +8,10 @@ const Devit = ({ avatar, username, message, id }) => {
           <Avatar src={avatar} alt={username} />
         </div>
         <section>
-          <strong>{username}</strong>
+          <header>
+            <strong>{username}</strong>
+            <date>{createdAt}</date>
+          </header>
           <p>{message}</p>
         </section>
       </article>
@@ -23,6 +26,10 @@ const Devit = ({ avatar, username, message, id }) => {
         div {
           min-width: 60px;
           padding-right: 10px;
+        }
+
+        date {
+          padding-left: 5px;
         }
 
         p {
