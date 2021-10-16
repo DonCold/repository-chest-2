@@ -6,6 +6,8 @@ import {
   collection,
   addDoc,
   getDocs,
+  orderBy,
+  query,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -59,7 +61,9 @@ export const addDevit = async ({ avatar, message, userId, username }) => {
 export const getDevits = async () => {
   let snapshots;
   try {
-    snapshots = await getDocs(collection(db, "devits"));
+    snapshots = await getDocs(
+      query(collection(db, "devits"), orderBy("createdAt", "desc"))
+    );
   } catch (error) {
     console.log(error);
   }
@@ -70,20 +74,9 @@ export const getDevits = async () => {
     data.id = doc.id;
     const { createdAt } = data;
 
-    const intl = new Intl.DateTimeFormat("es-ES", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const normalizeCreatedAt = intl
-      .format(new Date(createdAt.seconds * 1000))
-      .toString();
-
     return {
       ...data,
-      createdAt: normalizeCreatedAt,
+      createdAt: +createdAt.toDate(),
     };
   });
 
