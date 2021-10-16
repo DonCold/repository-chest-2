@@ -20,6 +20,18 @@ export default css`
     height: 100%;
     position: relative;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main::-webkit-scrollbar {
+    width: 10px;
+    background-color: #ffffffee;
+  }
+
+  main::-webkit-scrollbar-thumb {
+    background: ${colors.black};
+    border-radius: 9999px;
   }
 
   @media (min-width: ${breakpoints.mobile}) {

@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 import AppLayout from "components/AppLayout";
 import Devit from "components/Devit/index";
+
+import Create from "components/Icons/Create";
+import Home from "components/Icons/Home";
+import Search from "components/Icons/Search";
+
 import useUser from "hooks/useUser";
 import { getDevits } from "_firebase/client";
+import { colors } from "styles/theme";
 
 const HomePage = () => {
   const [timelime, setTimelime] = useState([]);
@@ -28,12 +35,29 @@ const HomePage = () => {
                 avatar={devit.avatar}
                 id={devit.id}
                 message={devit.message}
+                img={devit.img}
                 createdAt={devit.createdAt}
               />
             );
           })}
         </section>
-        <nav></nav>
+        <nav>
+          <Link href="/home">
+            <a>
+              <Home width={32} height={32} stroke="#09f" />
+            </a>
+          </Link>
+          <Link href="/search">
+            <a>
+              <Search width={32} height={32} stroke="#09f" />
+            </a>
+          </Link>
+          <Link href="/compose/tweet">
+            <a>
+              <Create width={32} height={32} stroke="#09f" />
+            </a>
+          </Link>
+        </nav>
       </AppLayout>
 
       <style jsx>{`
@@ -59,16 +83,37 @@ const HomePage = () => {
 
         section {
           padding-top: 16px;
+          flex: 1;
         }
 
         nav {
           bottom: 0;
           background-color: #ffffffee;
-          backdrop-filter: blur(5px);
           position: sticky;
-          border-top: 1px solid #e6e6e6;
+          border-top: 1px solid #eee;
+          border-radius: 0 0 10px 10px;
           height: 49px;
           width: 100%;
+          display: flex;
+          z-index: 2;
+        }
+
+        nav a {
+          display: flex;
+          align-items: center;
+          flex: 1 1 auto;
+          height: 100%;
+          justify-content: center;
+        }
+
+        nav a:hover {
+          background: radial-gradient(#0099ff30 15%, transparent 16%);
+          background-size: 100px 100px;
+          background-position: center;
+        }
+
+        nav a:hover > :global(svg) {
+          stroke: ${colors.secondary};
         }
       `}</style>
     </>

@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+
 import {
   getFirestore,
   Timestamp,
@@ -46,10 +48,11 @@ export const loginWithGithub = async () => {
   await signInWithPopup(auth, githubProvider);
 };
 
-export const addDevit = async ({ avatar, message, userId, username }) => {
+export const addDevit = async ({ avatar, message, userId, username, img }) => {
   return await addDoc(collection(db, "devits"), {
     avatar,
     message,
+    img,
     userId,
     username,
     createdAt: Timestamp.fromDate(new Date()),
@@ -81,4 +84,10 @@ export const getDevits = async () => {
   });
 
   return data;
+};
+
+export const uploadImage = (file) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `images/${file.name}`);
+  return uploadBytesResumable(storageRef, file);
 };
