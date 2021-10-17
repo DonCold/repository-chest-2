@@ -8,19 +8,13 @@ import {
   collection,
   addDoc,
   getDocs,
+  onSnapshot,
   orderBy,
   query,
+  limit,
 } from "firebase/firestore";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCtAUH_XRFLvUGVwYgdoDm-jb8aXXgcXzE",
-  authDomain: "devter-3026f.firebaseapp.com",
-  projectId: "devter-3026f",
-  storageBucket: "devter-3026f.appspot.com",
-  messagingSenderId: "826572540564",
-  appId: "1:826572540564:web:6ed81190c23302f16b0281",
-  measurementId: "G-X4BJHGW5DV",
-};
+const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_APIKEY);
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
@@ -61,29 +55,42 @@ export const addDevit = async ({ avatar, message, userId, username, img }) => {
   });
 };
 
+const msgDevitFirebase = (doc) => {
+  const data = doc.data();
+  data.id = doc.id;
+  const { createdAt } = data;
+
+  return {
+    ...data,
+    createdAt: +createdAt.toDate(),
+  };
+};
+
+export const listenLatestDevits = (onChange) => {
+  const q = query(
+    collection(db, "devits"),
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+
+  return onSnapshot(q, ({ docs }) => {
+    const data = docs.map(msgDevitFirebase);
+    onChange(data);
+  });
+};
+
 export const getDevits = async () => {
   let snapshots;
   try {
     snapshots = await getDocs(
-      query(collection(db, "devits"), orderBy("createdAt", "desc"))
+      query(collection(db, "devits"), orderBy("createdAt", "desc"), limit(20))
     );
   } catch (error) {
     console.log(error);
   }
 
   if (!snapshots) return [];
-  const data = snapshots.docs.map((doc) => {
-    const data = doc.data();
-    data.id = doc.id;
-    const { createdAt } = data;
-
-    return {
-      ...data,
-      createdAt: +createdAt.toDate(),
-    };
-  });
-
-  return data;
+  return snapshots.docs.map(msgDevitFirebase);
 };
 
 export const uploadImage = (file) => {

@@ -8,7 +8,7 @@ import Home from "components/Icons/Home";
 import Search from "components/Icons/Search";
 
 import useUser from "hooks/useUser";
-import { getDevits } from "_firebase/client";
+import { listenLatestDevits } from "_firebase/client";
 import { colors } from "styles/theme";
 
 const HomePage = () => {
@@ -16,7 +16,12 @@ const HomePage = () => {
   const user = useUser();
 
   useEffect(() => {
-    user && getDevits().then(setTimelime);
+    let unsuscribe;
+    if (user) {
+      unsuscribe = listenLatestDevits(setTimelime);
+    }
+
+    return () => unsuscribe && unsuscribe();
   }, [user]);
 
   return (

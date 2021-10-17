@@ -7,6 +7,9 @@ const DATE_INITS = [
   ["second", 1],
 ];
 
+const isDateTimeFormatSupport =
+  typeof Intl !== "undefined" && Intl.DateTimeFormat;
+
 const getDateDiffs = (timestamp) => {
   const now = Date.now();
   const diff = (now - timestamp) / 1000;
@@ -26,19 +29,33 @@ const useTimeAgo = (timestamp) => {
   const [timeAgo, setTimeAgo] = useState(() => getDateDiffs(timestamp));
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newTimeAgo = getDateDiffs(timestamp);
-      setTimeAgo(newTimeAgo);
-    }, 1000);
+    let interval;
 
-    return () => clearInterval(interval);
+    if (isDateTimeFormatSupport) {
+      interval = setInterval(() => {
+        const newTimeAgo = getDateDiffs(timestamp);
+        setTimeAgo(newTimeAgo);
+      }, 1000);
+    }
+
+    return () => interval && clearInterval(interval);
   }, []);
 
-  const rtf = new Intl.RelativeTimeFormat("es", {
+  if (!isDateTimeFormatSupport) {
+    const date = new Date(timestamp);
+
+    return date.toLocaleDateString("es", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
+  const { value, unit } = timeAgo;
+
+  const rtf = new Intl.RelativeTimeFormat("es-ES", {
     style: "short",
   });
-
-  const { value, unit } = timeAgo;
   return rtf.format(value * -1, unit);
 };
 
