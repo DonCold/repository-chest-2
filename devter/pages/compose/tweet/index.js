@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { getDownloadURL } from "firebase/storage";
 
 import { addDevit, uploadImage } from "_firebase/client";
 
-import AppLayout from "components/AppLayout";
 import Button from "components/Button";
 import Avatar from "components/Avatar";
 
@@ -98,41 +96,33 @@ const ComposeTweet = () => {
 
   return (
     <>
-      <AppLayout>
-        <section className="form-container">
-          <section className="avatar-container">
-            {user && <Avatar src={user.avatar} />}
-          </section>
-          <form onSubmit={hanldeSubmit}>
-            {user && <strong className="name-text">{user.username}</strong>}
-            <textarea
-              onChange={handleChange}
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              value={devit}
-              placeholder="¿Qué esta pasando?"
-            ></textarea>
-            {imageUrl && (
-              <section className="image-section">
-                <button onClick={() => setImageUrl(null)}>❌</button>
-                <Image
-                  className="image"
-                  src={imageUrl}
-                  alt="uploaded image"
-                  width={500}
-                  height={300}
-                />
-              </section>
-            )}
-            <div>
-              <Button disabled={isButtonDisabled} type="submit">
-                Devitear
-              </Button>
-            </div>
-          </form>
+      <section className="form-container">
+        <section className="avatar-container">
+          {user && <Avatar src={user.avatar} />}
         </section>
-      </AppLayout>
+        <form onSubmit={hanldeSubmit}>
+          {user && <strong className="name-text">{user.username}</strong>}
+          <textarea
+            onChange={handleChange}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            value={devit}
+            placeholder="¿Qué esta pasando?"
+          ></textarea>
+          {imageUrl && (
+            <section className="image-section">
+              <button onClick={() => setImageUrl(null)}>❌</button>
+              <img className="image" src={imageUrl} alt="uploaded image" />
+            </section>
+          )}
+          <div>
+            <Button disabled={isButtonDisabled} type="submit">
+              Devitear
+            </Button>
+          </div>
+        </form>
+      </section>
 
       <style jsx>{`
         .form-container {

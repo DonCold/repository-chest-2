@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import { loginWithGithub } from "_firebase/client";
 
-import AppLayout from "components/AppLayout";
 import Button from "components/Button";
 import GitHub from "components/Icons/GitHub";
 
@@ -30,22 +29,20 @@ export default function Home() {
 
   return (
     <>
-      <AppLayout>
-        <section>
-          <h1>Devter</h1>
-          <div>
-            {user === USER_STATES.NOT_LOGGED && (
-              <Button onClick={handleClick}>
-                <GitHub width={24} height={24} fill="#fff" />
-                Login with Github
-              </Button>
-            )}
-            {user === USER_STATES.NOT_KNOWN && (
-              <Image src="/loading.svg" width="200" height="200" />
-            )}
-          </div>
-        </section>
-      </AppLayout>
+      <section>
+        <h1>Devter</h1>
+        <div>
+          {user === USER_STATES.NOT_LOGGED && (
+            <Button onClick={handleClick}>
+              <GitHub width={24} height={24} fill="#fff" />
+              Login with Github
+            </Button>
+          )}
+          {user === USER_STATES.NOT_KNOWN && (
+            <Image src="/loading.svg" width="200" height="200" />
+          )}
+        </div>
+      </section>
 
       <style jsx>
         {`

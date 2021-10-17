@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-import AppLayout from "components/AppLayout";
 import Devit from "components/Devit/index";
 
 import Create from "components/Icons/Create";
@@ -22,43 +21,51 @@ const HomePage = () => {
 
   return (
     <>
-      <AppLayout>
-        <header>
-          <h2>Inicio</h2>
-        </header>
-        <section>
-          {timelime?.map((devit) => {
-            return (
-              <Devit
-                key={devit.id}
-                username={devit.username}
-                avatar={devit.avatar}
-                id={devit.id}
-                message={devit.message}
-                img={devit.img}
-                createdAt={devit.createdAt}
-              />
-            );
-          })}
-        </section>
-        <nav>
-          <Link href="/home">
-            <a>
-              <Home width={32} height={32} stroke="#09f" />
-            </a>
-          </Link>
-          <Link href="/search">
-            <a>
-              <Search width={32} height={32} stroke="#09f" />
-            </a>
-          </Link>
-          <Link href="/compose/tweet">
-            <a>
-              <Create width={32} height={32} stroke="#09f" />
-            </a>
-          </Link>
-        </nav>
-      </AppLayout>
+      <header>
+        <h2>Inicio</h2>
+      </header>
+      <section>
+        {timelime?.map((devit) => {
+          return (
+            <Devit
+              key={devit.id}
+              username={devit.username}
+              avatar={devit.avatar}
+              id={devit.id}
+              message={devit.message}
+              img={devit.img}
+              createdAt={devit.createdAt}
+            />
+          );
+        })}
+        {timelime.length === 0 && (
+          <div className="no-devits">
+            <p>No hay devits, ¿Porque no publicamos el primero?</p>
+            <Link href="/compose/tweet">
+              <a>
+                <Create width={32} height={32} stroke="#09f" />
+              </a>
+            </Link>
+          </div>
+        )}
+      </section>
+      <nav>
+        <Link href="/home">
+          <a>
+            <Home width={32} height={32} stroke="#09f" />
+          </a>
+        </Link>
+        <Link href="/search">
+          <a>
+            <Search width={32} height={32} stroke="#09f" />
+          </a>
+        </Link>
+        <Link href="/compose/tweet">
+          <a>
+            <Create width={32} height={32} stroke="#09f" />
+          </a>
+        </Link>
+      </nav>
 
       <style jsx>{`
         header {
@@ -82,7 +89,7 @@ const HomePage = () => {
         }
 
         section {
-          padding-top: 16px;
+          padding-top: 8px;
           flex: 1;
         }
 
@@ -106,14 +113,24 @@ const HomePage = () => {
           justify-content: center;
         }
 
-        nav a:hover {
+        a:hover {
           background: radial-gradient(#0099ff30 15%, transparent 16%);
           background-size: 100px 100px;
           background-position: center;
         }
 
-        nav a:hover > :global(svg) {
+        a:hover > :global(svg) {
           stroke: ${colors.secondary};
+        }
+
+        .no-devits {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text: center;
+          width: 100%;
+          height: 100%;
         }
       `}</style>
     </>
