@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <title>Code Cold</title>
+  </head>
+  <body>
+
+    <div class="modal-container">
+      <div class="modal modal-close">
+        <p class="close-button">&#10006</p>
+        <h2>Code Cold - Modal</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, ab!</p>
+        <p>Modal de Prueba</p>
+      </div>
+    </div>
+
+    <div id="app" class="grid">
+      <div id="html" class="editor"></div>
+      <div id="css" class="editor"></div>
+      <div id="js" class="editor"></div>
+      <div class="preview">
+        <iframe id="iframe" class="iframe"></iframe>
+      </div>
+
+      <div class="horizontal-gutter"></div>
+      <div class="vertical-gutter"></div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
